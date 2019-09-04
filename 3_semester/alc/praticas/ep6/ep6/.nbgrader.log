@@ -1,0 +1,54 @@
+[NotebookApp | WARNING] No nbgrader_config.py file found (rerun with --debug to see where nbgrader is looking)
+[NotebookApp | INFO] Loading the validate_assignment nbgrader serverextension
+[NotebookApp | INFO] Serving notebooks from local directory: /Users/murai/Dropbox/teaching/alc/2019.1/exercicios/source/ep6
+[NotebookApp | INFO] The Jupyter Notebook is running at:
+[NotebookApp | INFO] http://localhost:8888/?token=7b0f515f6c351e4ac0afe32929f0d3cd718015677045b5ff
+[NotebookApp | INFO] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[NotebookApp | CRITICAL] 
+    
+    Copy/paste this URL into your browser when you connect for the first time,
+    to login with a token:
+        http://localhost:8888/?token=7b0f515f6c351e4ac0afe32929f0d3cd718015677045b5ff
+[NotebookApp | INFO] Accepting one-time-token-authenticated connection from ::1
+[NotebookApp | CRITICAL] Unwritable directory, please contact your instructor: /srv/nbgrader/exchange
+[NotebookApp | CRITICAL] Unwritable directory, please contact your instructor: /srv/nbgrader/exchange
+[NotebookApp | CRITICAL] Unwritable directory, please contact your instructor: /srv/nbgrader/exchange
+[NotebookApp | CRITICAL] Unwritable directory, please contact your instructor: /srv/nbgrader/exchange
+[NotebookApp | WARNING] Notebook ep6.ipynb is not trusted
+[NotebookApp | INFO] Kernel started: 02e46aaa-18d2-4848-9971-bb91d0e27447
+[NotebookApp | INFO] Adapting to protocol v5.1 for kernel 02e46aaa-18d2-4848-9971-bb91d0e27447
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb
+[NotebookApp | INFO] Saving file at /ep6.ipynb

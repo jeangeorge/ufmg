@@ -1,0 +1,12 @@
+O TP foi desenvolvido num computador com Windows 10 através da IDE Eclipse. 
+
+Para compilar o programa:
+gcc -o espiral espiral.c -lm
+
+Para executar o programa:
+./espiral
+
+Os comandos devem ser digitados no prompt/terminal, lembrando sempre de estar dentro da pasta correta.
+
+Ou...
+Compilar numa IDE.

@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/jeang/CLionProjects/tp3_ed/Code.hpp
+string
+-
+
+C:/Users/jeang/CLionProjects/tp3_ed/Node.hpp
+Code.hpp
+C:/Users/jeang/CLionProjects/tp3_ed/Code.hpp
+
+C:/Users/jeang/CLionProjects/tp3_ed/Tree.hpp
+Node.hpp
+C:/Users/jeang/CLionProjects/tp3_ed/Node.hpp
+string
+-
+
+C:/Users/jeang/CLionProjects/tp3_ed/main.cpp
+Tree.hpp
+C:/Users/jeang/CLionProjects/tp3_ed/Tree.hpp
+string
+-
+fstream
+-
+iostream
+-
+sstream
+-
+
