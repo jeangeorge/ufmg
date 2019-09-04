@@ -1,0 +1,98 @@
+2;Uma Breve Historia do Tempo;Stephen Hawking;Ciencia;0
+3;Uma Comovente Obra de Espantoso Talento;Dave Eggers;Drama;5
+4;Muito Longe de Casa;Ishmael Beah;Drama;1
+5;Mau Come�o;Lemony Snicket (Desventuras em S�rie);Drama;2
+6;Uma Dobra no Tempo;Madeleine L�Engle;Fic��o Cient�fica;3
+7;Selected Stories, 1968-1994;Alice Munro;Contos;4
+8;Alice;Lewis Carroll;Fantasia;5
+9;Todos os Homens do Presidente;Bob Woodward e Carl Bernstein;Policial;1
+10;As Cinzas de Angela: Mem�ria;Frank McCourt;Drama;9
+11;Voc� est� a�, Deus? Sou eu, Margaret;Judy Blume;Drama;0
+12;Bel Canto;Ann Patchett;A��o;1
+13;Amada;Toni Morrison;Fic��o;1
+14;Nascido para Correr;Christopher McDougall;Aventura;2
+15;Artigo;Joseph Heller;Historia;3
+16;Artigo 22;Joseph Heller;Hist�ria;4
+17;A Fant�stica F�brica de Chocolate;Roald Dahl;Fantasia;5
+18;A Menina e o Porquinho;E. B. White;Fantasia;4
+19;O D�cimo Primeiro Mandamento;Abraham Verghese;Romance;7
+20;A Coragem de Ser Imperfeito;Bren� Brown;Romance;5
+21;Di�rio de Um Banana;Jeff Kinney;Com�dia;4
+22;Duna (Cr�nicas de Duna);Frank Herbert;Aventura;1
+23;Fahrenheit 451;Ray Bradbury;Hist�ria;11
+24;Medo e Del�rio em Las Vegas;Hunter S. Thompson;Drama;9
+25;Garota Exemplar;Gillian Flynn;Drama;5
+26;Boa Noite, Lua;Margaret Wise Brown;Fantasia;5
+27;Grandes Esperan�as;Charles Dickens;Drama;6
+28;Armas, Germes e A�o;Jared Diamond;Hist�ria;9
+29;Harry Potter e a Pedra Filosofal;J. K. Rowling;Fantasia;1
+30;A Sangue Frio;Truman Capote;Romance;1
+31;Int�rprete de Males;Jhumpa Lahiri;Contos;2
+32;Homem Invis�vel;Ralph Ellison;Drama;3
+33;Jimmy Corrigan: O Menino Mais Esperto do Mundo;Chris Ware;Quadrinhos;4
+34;Cozinha Confidencial;Anthony Bourdain;Romance;5
+35;O Fio da Vida;Kate Atkinson;Drama;7
+36;Uma Casa na Campina;Laura Ingalls Wilder;Infantil;8
+37;Lolita;Vladimir Nabokov;Romance;9
+38;O Amor nos Tempos do C�lera;Gabriel Garcia Marquez;Romance;1
+39;Love Medicine;;Medicina;2
+40;Em Busca de Sentido;Viktor E. Frankl;Drama;3
+41;Eu Falar Bonito um Dia;David Sedaris;Humor;4
+42;Middlesex;Jeffrey Eugenides;Romance;6
+43;Os Filhos da Meia-Noite;Salman Rushdie;Romance;6
+44;Moneyball: O Homem que Mudou o Jogo;Michael Lewis;Esportes;9
+45;Servid�o Humana;William Somerset Maugham;Drama;8
+46;On The Road (P� Na Estrada);Jack Kerouac;Aventura;7
+47;Out of Africa;Isak Dinesen;Aventura;1
+48;Pers�polis;Marjane Satrapi;Drama;3
+49;O Complexo de Portnoy;Philip Roth;Romance;5
+50;Orgulho e Preconceito;Jane Austen;Drama;4
+51;Primavera Silenciosa;Rachel Carson;Ci�ncia;7
+52;Matadouro 5;Kurt Vonnegut;Guerra;6
+53;Lincoln;Doris Kearns Goodwin;Pol�tica;8
+54;A �poca da Inoc�ncia;Edith Wharton;Romance;2
+55;As Incr�veis Aventuras de Kavalier e Clay;Michael Chabon;Drama;1
+56;A Autobiografia de Malcolm X;Alex Haley;Autobiografia;3
+57;A Menina Que Roubava Livros;Markus Zusak;Drama;5
+58;A Fant�stica Vida Breve de Oscar Wao;Junot Diaz;Drama;7
+59;O Apanhador no Campo de Centeio;J. D. Salinger;Juvenil;8
+60;A Cor da �gua: Tributo de um Negro a sua M�e Branca;James McBride;Drama;4
+61;As Corre��es;Jonathan Franzen;Religioso;3
+62;O Dem�nio na Cidade Branca;Erik Larson;Suspense;1
+63;O Di�rio de Anne Frank;Anne Frank;Guerra;2
+64;A Culpa � das Estrelas;John Green;Drama;3
+65;O Doador De Mem�rias: Quando N�o H� Mem�rias, A Liberdade � Apenas Uma Ilus�o;Lois Lowry;Aventura;5
+66;A B�ssola De Ouro;Philip Pullman;Aventura;4
+67;O Grande Gatsby;F. Scott Fitzgerald;Romance;7
+68;O Conto da Aia;Margaret Atwood;Romance;8
+69;A Casa no Cantinho do Puff;A. A. Milne;Infantil;9
+70;Jogos Vorazes;Suzanne Collins;Aventura;1
+71;A Vida Imortal de Henrietta Lacks;Rebecca Skloot;Drama;5
+72;The Liars� Club: A Memoir;Mary Karr;Hist�ria;6
+73;O Ladr�o de Raios (Percy Jackson e Os Olimpianos);Rick Riordan;Aventura;9
+74;O Pequeno Pr�ncipe;Antoine de Saint-Exup�ry;Infantil;4
+75;O Longo Adeus;Raymond Chandler;Romance;1
+76;O Vulto das Torres: A Al-Qaeda e o Caminho at� o 11/9;Lawrence Wright;Drama;2
+77;O Senhor dos An�is: A Sociedade do Anel;J. R. R. Tolkien;Aventura;5
+78;O Homem que Confundiu Sua Mulher com Um Chap�u;Oliver Sacks;Ci�ncia;4
+79;Cozinhar: Uma Hist�ria Natural Da Transforma��o;Michel Pollan;Culin�ria;7
+80;Tudo Depende de Como Voc� V� As Coisas;Norton Juster;Drama;8
+81;A B�blia Envenenada;Barbara Kingsolver;Fic��o;9
+82;The Power Broker: Robert Moses and the Fall of New York;Robert A. Caro;Drama;1
+83;The Right Stuff;Tom Wolfe;Ci�ncia;6
+84;A Estrada;Cormac McCarthy;Fic��o;8
+85;A Hist�ria Secreta;Donna Tartt;Hist�ria;1
+86;O Iluminado;Stephen King;Suspense;6
+87;O Estrangeiro;Albert Camus;Romance;4
+88;O Sol Tamb�m Se Levanta;Ernest Hemingway;Psicologia;1
+89;The Things They Carried;Tim O�Brien;Guerra;3
+90;Uma Lagarta Muito Comilona;Eric Carle;Infantil;4
+91;O Vento nos Salgueiros;Kenneth Grahame;Infantil;5
+92;Cr�nica do P�ssaro de Corda;Haruki Murakami;Aventura;9
+93;O Mundo Segundo Garp;John Irving;Prosa;1
+94;O Ano do Pensamento M�gico;Joan Didion;Drama;4
+95;O Mundo se Despeda�a;Chinua Achebe;Hist�ria;5
+96;O Sol � Para Todos;Harper Lee;Drama;6
+97;Invenc�vel;Laura Hillenbrand;Drama;0
+103;Cartas a um Jovem Terapeuta;Contardo Calligaris;Drama;2
+104;teste1;autor1;genero1;2
