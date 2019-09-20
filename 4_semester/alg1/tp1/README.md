@@ -1,3 +1,3 @@
-# UFMG
+# TP1 da Disciplina "Algoritmos 1"
 
-Práticas, trabalhos e afins :)
+Criação, manipulações, operações e pesquisas em grafos.
