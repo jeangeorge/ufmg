@@ -1,7 +1,6 @@
 #ifndef NODE_HPP
 #define NODE_HPP
 
-#include "Member.hpp"
 #include <vector>
 
 using std::vector;

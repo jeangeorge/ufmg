@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "Member.hpp"
 #include "Node.hpp"
 #include "Edge.hpp"
 #include "Graph.hpp"
