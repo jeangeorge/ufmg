@@ -4,6 +4,7 @@
 
 #include "Node.hpp"
 #include "Edge.hpp"
+
 #include <vector>
 
 using std::vector;
@@ -25,14 +26,14 @@ class Graph {
     private:
         vector<int> *adjList; // Lista de adjacencia do grafo: array de vectors {{1,2},{3,4}} etc
         vector<Node> nodes; // Lista de nós
-        vector<Edge> edges; // Lista de arestas
 
         bool directCommand(int a, int b); // Verifica se A comanda B diretamente
         void swapCommand(int a, int b); // Troca A->B para B->A
         bool hasCycle(); // Verifica se o grafo possui ciclo
         bool hasCycle(int v, bool *visited, bool *recursiveStack);
-        int commander(int a, int newAge);
-        vector<int> directCommanders(int a);
+        void transpose(); // Transpõe o grafo
+        vector<Node> connected(int a); // Retorna todos os vertices conectados a A
+        vector<int> topologicalOrder(); // Retorna uma lista de vértices em ordem topológica
 };
 
 #endif

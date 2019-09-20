@@ -64,13 +64,21 @@ int main() {
         // command
         else if (instruction == 'C') {
             // Le o membro e mostra o comandante mais novo
-            int a;
+            int a, age;
             cin >> a;
-            cout << graph->commander(a-1) << endl;
+            age = graph->commander(a-1);
+            cout << "C ";
+            if (age == -1) {
+                cout << "*" << endl;
+            } else {
+                cout << age << endl;
+            }
         }
         // meeting
         else if (instruction == 'M') {
-            // graph->meeting();
+            cout << "M ";
+            graph->meeting();
+            cout << endl;
         }
     }
 
