@@ -30,7 +30,7 @@ class Graph {
         bool directCommand(int a, int b); // Verifica se A comanda B diretamente
         void swapCommand(int a, int b); // Troca A->B para B->A
         bool hasCycle(); // Verifica se o grafo possui ciclo
-        bool hasCycleAux(int v, bool *visited, bool *recursiveStack);
+        bool hasCycleAux(int v, bool visited[], bool *recursiveStack);
         void transpose(); // Transpõe o grafo
         vector<Node> connected(int a); // Retorna todos os vertices conectados a A
         vector<int> topologicalOrder(); // Retorna uma lista de vértices em ordem topológica

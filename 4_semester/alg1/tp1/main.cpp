@@ -1,20 +1,27 @@
 #include <iostream>
+#include <fstream>
 
 #include "Node.hpp"
 #include "Edge.hpp"
 #include "Graph.hpp"
 
-using std::cin;
 using std::cout;
 using std::endl;
 using std::vector;
+using std::ifstream;
 
 // V: número de vértices, A: número de arestas
+int main(int argc, char** argv) {
+    ifstream file (argv[1]);
 
-int main() {
+    // Se arquivo não foi aberto, já encerra o programa
+    if (!file.is_open()) {
+        return 0;
+    }
+
     int members, relationships, instructions; // quantidades: nós, vertices e comandos
 
-    cin >> members >> relationships >> instructions; // leitura das quantidades
+    file >> members >> relationships >> instructions; // leitura das quantidades
 
     vector<Node> nodes; // vector de nós para todos os membros
     vector<Edge> edges; // vector de arestas / relações
@@ -28,7 +35,7 @@ int main() {
     // Complexidade: O(V)
     for (int i=0; i<members; i++) {
         int age; // variavel para armazenar a idade de cada membro
-        cin >> age;
+        file >> age;
         nodes[i] = Node(i,age);
     }
 
@@ -36,7 +43,7 @@ int main() {
     // Complexidade: O(A)
     for (int i=0; i<relationships; i++) {
         int source, destiny;
-        cin >> source >> destiny;
+        file >> source >> destiny;
         edges[i] = Edge(nodes[source-1],nodes[destiny-1]); // -1 porque os ids dos membros iniciam-se no 1 e o vector começa no indice 0
     }
 
@@ -48,23 +55,27 @@ int main() {
     // Complexidade: Entendi que nesse laço é irrelevante, a complexidade de cada função é analisada dentro da mesma
     for (int i=0; i<instructions; i++) {
         char instruction;
-        cin >> instruction;
+        file >> instruction;
         // swap
         if (instruction == 'S') {
             // Faz a leitura dos membros que se quer trocar
             int a,b;
-            cin >> a >> b;
+            file >> a >> b;
+            // cout << "Antes:" << endl;
+            // graph->print();
             if (graph->swap(a-1,b-1)) {
                 cout << "S T" << endl;
             } else {
                 cout << "S N" << endl;
             }
+            // cout << "Depois:" << endl;
+            // graph->print();
         }
         // command
         else if (instruction == 'C') {
             // Le o membro e mostra o comandante mais novo
             int a, age;
-            cin >> a;
+            file >> a;
             age = graph->commander(a-1);
             cout << "C ";
             if (age == -1) {
@@ -82,6 +93,6 @@ int main() {
     }
 
     delete graph;
-
+    file.close();
     return 0;
 }

@@ -26,6 +26,14 @@ Graph::~Graph() {
 
 }
 
+void Graph::print() {
+    for (int i=0; i<numberOfNodes; i++) {
+        std::cout << i+1 << " --> ";
+        for (int v : adjList[i])
+            std::cout << v+1 << " ";
+        std::cout << std::endl;
+    }
+}
 
 // Função que troca a ordem de comando entre A e B (se possivel)
 bool Graph::swap(int a, int b) {
@@ -135,14 +143,15 @@ bool Graph::hasCycle() {
 }
 
 
-bool Graph::hasCycleAux(int v, bool *visited, bool *recursiveStack) {
+bool Graph::hasCycleAux(int v, bool visited[], bool *recursiveStack) {
     // Se o vértice ainda não foi visitado
     if (visited[v] == false) {
         // Visita ele
         visited[v] = true;
         recursiveStack[v] = true;
+        vector<int>::iterator i; 
         // Percorre os adjacentes de v
-        for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) {
+        for (i = adjList[v].begin(); i != adjList[v].end(); ++i) {
             if (!visited[*i] && hasCycleAux(*i,visited,recursiveStack)) {
                 // Se ele ainda não foi visiado e possui ciclo: grafo possui ciclo
                 return true;
