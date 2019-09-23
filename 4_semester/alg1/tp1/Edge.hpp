@@ -4,7 +4,7 @@
 
 #include "Node.hpp"
 
-// Vértice
+// Vértice - Tem um nó de origem e um nó de destino
 class Edge {
     public:
         Node source;
