@@ -10,7 +10,6 @@ Graph::Graph(vector<Node> nodes, vector<Edge> edges, int numberOfNodes, int numb
     this->numberOfEdges = numberOfEdges;
 
     // Redimensiona a lista de acordo com o numero de vertices
-    // Complexidade: O(V)
     adjList = new vector<int>[numberOfNodes];
 
     // Percorre o vector de arestas para preencher a lista de adjacencias
@@ -38,9 +37,9 @@ void Graph::print() {
 // Função que troca a ordem de comando entre A e B (se possivel)
 bool Graph::swap(int a, int b) {
     bool sucess = false;
-    // Verifica se A comanda B diretamente
+    // Verifica se A comanda B diretamente - Complexidade: O(V-1) = O(V)
     if (directCommand(a,b)) {
-        // Caso comande, já troca A->B para B->A
+        // Caso comande, já troca A->B para B->A - Complexidade: O(V)
         swapCommand(a,b);
         // Se o grafo não possui ciclo após a troca
         if (!hasCycle()) {
@@ -127,13 +126,15 @@ void Graph::swapCommand(int a, int b) {
 // Verifica se há um ciclo no grafo
 bool Graph::hasCycle() {
     // Marca todos os vértices como não visitados e não fazem parte da recursão
+    // Complexidade: O(V)
     bool *visited = new bool[numberOfNodes];
     bool *recursiveStack = new bool[numberOfNodes];
     for (int i=0; i<numberOfNodes; i++) {
         visited[i] = false;
         recursiveStack[i] = false;
     }
-    // Chama a função auxiliar recursiva para detectar o ciclo em diferentes arvores DFS
+    // Chama a função auxiliar recursiva para detectar o ciclo
+    // Complexidade será o número de arestas
     for (int i=0; i<numberOfNodes; i++) {
         if (hasCycleAux(i,visited,recursiveStack)) {
             return true;

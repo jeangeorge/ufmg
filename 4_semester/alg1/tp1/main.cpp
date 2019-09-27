@@ -7,14 +7,9 @@
 #include "Graph.hpp"
 #include <time.h>
 #include <iomanip>      // std::setprecision
-#include <bits/stdc++.h> 
-#include <sys/time.h> 
-#include <chrono> 
-#include <thread>
-#include <windows.h>
+#include <cmath>
 
 using namespace std;
-using namespace std::chrono ;
 
 using std::cout;
 using std::endl;
@@ -29,11 +24,11 @@ int main(int argc, char** argv) {
     if (!file.is_open()) {
         return 0;
     }
+    double times[10];
+    for (int k=0; k<10; k++) {
+        clock_t initialTime, finalTime;
+        initialTime = clock();
 
-    // for (int k=0; k<10; k++) {
-        LARGE_INTEGER start, finish, freq;
-        QueryPerformanceFrequency(&freq);
-        QueryPerformanceCounter(&start);
         int members, relationships, instructions; // quantidades: nós, vertices e comandos
 
         file >> members >> relationships >> instructions; // leitura das quantidades
@@ -107,25 +102,21 @@ int main(int argc, char** argv) {
 
         file.close();
 
-        QueryPerformanceCounter(&finish);
-        double time = ((finish.QuadPart - start.QuadPart) / (double)freq.QuadPart) * 1e+6;
-        std::cout << "Execution took " << time << std::endl;
+        finalTime = clock();
+        times[k] = (finalTime- initialTime) * 1000.0 / CLOCKS_PER_SEC;
+    }
 
-    // }
-
-    // finalTime = clock();
-    // double duration = ((finalTime - initialTime) * 1000.0) / CLOCKS_PER_SEC;
-    // double avg  = duration / 10;
-
-    // double var = 0;
-    // for (int k=0; k<10; k++) {
-    //     var += (times[k] - avg) * (times[k] - avg);
-    //     // std::cout << std::fixed << std::setprecision(100) << times[k] << std::endl;
-    // }
-    // double dp = std::sqrt(var/9);
-
-    // cout << endl << "MEDIA DE TEMPO: " << avg << endl;
-    // cout << "DESVIO PADRAO DE TEMPO: " << dp << endl;
-
+    double sum=0, avg, var=0 ,dp;
+    for (int i=0; i<10; i++) {
+        sum +=times[i];
+    }
+    avg = sum/10;
+    for (int i=0; i<10; i++) {
+        var += (times[i] -  avg) * (times[i] -  avg);
+    }
+    var = var/9;
+    dp = std::sqrt(var);
+    cout << "MEDIA DE TEMPO: " << avg << endl;
+    cout << "DESVIO PADRAO DE TEMPO: " << dp << endl;
     return 0;
 }
