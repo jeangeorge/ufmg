@@ -7,7 +7,6 @@
 Graph::Graph(vector<Node> nodes, vector<Edge> edges, int numberOfNodes, int numberOfEdges) {
     this->nodes = nodes;
     this->numberOfNodes = numberOfNodes;
-    this->numberOfEdges = numberOfEdges;
 
     // Redimensiona a lista de acordo com o numero de vertices
     adjList = new vector<int>[numberOfNodes];
@@ -142,7 +141,7 @@ bool Graph::hasCycleAux(int v, bool visited[], bool *recursiveStack) {
         // Visita ele
         visited[v] = true;
         recursiveStack[v] = true;
-        vector<int>::iterator i; 
+        vector<int>::iterator i;
         // Percorre os adjacentes de v
         for (i = adjList[v].begin(); i != adjList[v].end(); ++i) {
             if (!visited[*i] && hasCycleAux(*i,visited,recursiveStack)) {

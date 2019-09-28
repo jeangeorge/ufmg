@@ -13,7 +13,6 @@ using std::vector;
 class Graph {
     public:
         int numberOfNodes; // Numero de nos que o grafo possui
-        int numberOfEdges; // Numero de arestas do grafo
 
         Graph(vector<Node> nodes, vector<Edge> edges, int numberOfNodes, int numberOfEdges); // Construtor: recebe um vector de vertices, o numero de nós e arestas
         ~Graph(); // Destrutor
