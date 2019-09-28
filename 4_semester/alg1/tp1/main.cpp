@@ -109,6 +109,7 @@ int main(int argc, char** argv) {
     double sum=0, avg, var=0 ,dp;
     for (int i=0; i<10; i++) {
         sum +=times[i];
+        cout << times[i] << endl;
     }
     avg = sum/10;
     for (int i=0; i<10; i++) {
