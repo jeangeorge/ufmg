@@ -25,28 +25,20 @@ Graph::~Graph() {
 
 }
 
-void Graph::print() {
-    for (int i=0; i<numberOfNodes; i++) {
-        std::cout << i+1 << " --> ";
-        for (int v : adjList[i])
-            std::cout << v+1 << " ";
-        std::cout << std::endl;
-    }
-}
-
 // Função que troca a ordem de comando entre A e B (se possivel)
+// Complexidade no pior caso: O(4V+A) = O(V+A)
 bool Graph::swap(int a, int b) {
     bool sucess = false;
     // Verifica se A comanda B diretamente - Complexidade: O(V-1) = O(V)
     if (directCommand(a,b)) {
         // Caso comande, já troca A->B para B->A - Complexidade: O(V)
         swapCommand(a,b);
-        // Se o grafo não possui ciclo após a troca
+        // Se o grafo não possui ciclo após a troca - Complexidade: O(V+A)
         if (!hasCycle()) {
             // trocou sem problemas
             sucess = true;
         } else {
-            // problema: ocasionou ciclo. Desfaz a troca
+            // problema: ocasionou ciclo. Desfaz a troca - COmplexidade: O(V)
             swapCommand(b,a);
         }
     }
@@ -54,18 +46,18 @@ bool Graph::swap(int a, int b) {
 }
 
 
-// Obtem o comandante mais novo de A
+// Obtem o comandante mais novo de A - Complexidade: O(2V + 3A) = O(V)
 int Graph::commander(int a) {
-    int lowestAge = 9999999;
-    // Primeiramente transpõe o grafo
+    int lowestAge = 9999999; // Defino a maior idade como um numero bem grande
+    // Primeiramente transpõe o grafo - Complexidade: O(A)
     this->transpose();
-    // Obtém todos os vértices acessíveis a partir de A
+    // Obtém todos os vértices acessíveis a partir de A - Complexidade: O(V+A)
     vector<Node> connectedNodes = connected(a);
-    // Transpõe o grafo novamente, para voltar ao estado original
+    // Transpõe o grafo novamente, para voltar ao estado original - Complexidade: O(A)
     this->transpose();
     // Verifica se a lista não está vazia
     if (!connectedNodes.empty()) {
-        // Agora basta buscar a menor idade no array
+        // Agora basta buscar a menor idade no array - Complexidade no pior caso será O(V-1) = O(V)
         for (auto node : connectedNodes) {
             if (node.age < lowestAge) {
                 lowestAge = node.age;
@@ -80,7 +72,7 @@ int Graph::commander(int a) {
 
 // Ordem das falas na reunião
 void Graph::meeting() {
-    // Meeting feito baseando-se na ordem topologica
+    // Meeting feito baseando-se na ordem topologica - Complexidade: O(V+A)
     vector<int> topOrder = topologicalOrder();
 
     // Imprime a ordem topológica
@@ -134,7 +126,7 @@ bool Graph::hasCycle() {
         recursiveStack[i] = false;
     }
     // Chama a função auxiliar recursiva para detectar o ciclo
-    // Complexidade será o número de arestas
+    // Complexidade será V+A porque são olhados todos os vértices e toda aresta é coberta uma única vez
     for (int i=0; i<numberOfNodes; i++) {
         if (hasCycleAux(i,visited,recursiveStack)) {
             return true;
@@ -168,7 +160,7 @@ bool Graph::hasCycleAux(int v, bool visited[], bool *recursiveStack) {
 }
 
 
-// Função para transpor o grafo atual
+// Função para transpor o grafo atual - Complexidade será o número de arestas do grafo
 void Graph::transpose() {
     // Nova lista de adjencias
     vector<int> *newAdjList = new vector<int>[numberOfNodes];
@@ -184,6 +176,7 @@ void Graph::transpose() {
 
 
 // Retorna uma lista contendo todos os nós conectados a A
+// Faz uma busca em largura e retorna os nós
 vector<Node> Graph::connected(int a) {
     int first = a; // Primeiro nó (para evitar armazenar o proprio no na lista bfs)
     vector<Node> connectedNodes; // Vector onde armazerá os nós
@@ -200,7 +193,7 @@ vector<Node> Graph::connected(int a) {
     visited[a] = true;
     queue.push_back(a);
 
-    // Enquanto há elementos na fila
+    // Enquanto há elementos na lista
     while(!queue.empty()) {
         // Pega o último elemento
         a = queue.back();
@@ -216,7 +209,7 @@ vector<Node> Graph::connected(int a) {
         for (auto i = adjList[a].begin(); i != adjList[a].end(); ++i) {
             // Se o adjacente não foi visitado
             if (!visited[*i]) {
-                // O visita e o adiciona na lista
+                // O visita e o adiciona na lista BFS
                 visited[*i] = true;
                 queue.push_back(*i);
             }
@@ -228,20 +221,22 @@ vector<Node> Graph::connected(int a) {
 
 vector<int> Graph::topologicalOrder() {
     vector<int> stack; // Estrutura que armazenaremos a ordem, alterada pela função recursiva
-    // Marque  todos os nós como não visitados
+    // Marca  todos os nós como não visitados
     bool visited[numberOfNodes];
     for (int i=0; i<numberOfNodes; i++) {
         visited[i] = false;
     }
 
-    // Chama a função recursiva para guardar a ordem topologica
+    // Chama a função recursiva para guardar a ordem topologica - Complexidade é a mesma de um DFS: O(V+A)
     for (int i=0; i<numberOfNodes; i++) {
         if (!visited[i]) {
             topologicalOrderAux(i, visited, stack);
         }
     }
 
+    // Foi preciso inverter o array para obter a ordem topologica correta
     std::reverse(stack.begin(),stack.end());
+
     // Retorna a ordem topologica
     return stack;
 }
