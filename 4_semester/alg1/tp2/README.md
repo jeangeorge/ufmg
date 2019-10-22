@@ -1,3 +1,3 @@
-# TP1 da Disciplina "Algoritmos 1"
+# TP2 da Disciplina "Algoritmos 1"
 
-Criação, manipulações, operações e pesquisas em grafos.
+Paradigma de programação gulosa & paradigma de programação dinânamica.
