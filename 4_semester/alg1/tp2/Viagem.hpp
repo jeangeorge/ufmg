@@ -3,17 +3,18 @@
 
 #include "Ilha.hpp"
 
-class Viagem
-{
-public:
-  Viagem(int custo_total, int quantidade_ilhas, Ilha* ilhas);
+class Viagem {
+ public:
+  Viagem(int custo_total, int quantidade_ilhas, Ilha *ilhas);
+  ~Viagem();
   void viagemComRepeticao();
   void viagemSemRepeticao();
-private:
+
+ private:
   int custo_total, quantidade_ilhas;
   Ilha *ilhas;
-  void merge(Ilha A[], int p, int q, int r);
-  void mergeSort(Ilha A[], int p, int r);
+  void merge(Ilha ilhas[], int esquerda, int meio, int direita);
+  void mergeSort(Ilha ilhas[], int esquerda, int direita);
   int max(int a, int b);
 };
 
