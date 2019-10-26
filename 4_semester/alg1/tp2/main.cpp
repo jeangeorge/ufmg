@@ -7,27 +7,28 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-    ifstream file (argv[1]);
+    ifstream arquivo (argv[1]);
 
     // Se arquivo não foi aberto, já encerra o programa
-    if (!file.is_open()) {
+    if (!arquivo.is_open()) {
         return 0;
     }
 
     int custo_total, quantidade_ilhas; // custo_total em reais e quantidade de ilhas visitadas
 
-    file >> custo_total >> quantidade_ilhas; // Lê o custo e a quantidade
+    arquivo >> custo_total >> quantidade_ilhas; // Lê o custo e a quantidade
     Ilha* ilhas = new Ilha[quantidade_ilhas]; // Cria um array de ilhas de tamanho "quantidade_ilhas"
 
     // Preenche o array de ilhas
     for (int i=0; i<quantidade_ilhas; i++) {
         int custo_diario, pontuacao;
-        file >> custo_diario >> pontuacao;
+        arquivo >> custo_diario >> pontuacao;
         ilhas[i] = Ilha(custo_diario, pontuacao);
     }
 
-    file.close();
-    if (file.is_open()) {
+    // Fecha o arquivo, se não fechar encerra o programa
+    arquivo.close();
+    if (arquivo.is_open()) {
         return 0;
     }
 
