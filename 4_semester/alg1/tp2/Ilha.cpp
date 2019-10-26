@@ -6,7 +6,7 @@ Ilha::Ilha() {}
 
 Ilha::~Ilha() {}
 
-double Ilha::getCustoBeneficio() { return this->custo * 1.0 / this->pontuacao; }
+double Ilha::getCustoBeneficio() { return this->pontuacao * 1.0 / this->custo; }
 
 int Ilha::getCusto() { return this->custo; }
 

@@ -16,16 +16,16 @@ Viagem::~Viagem() {}
 
 // Viagem com repetição: algoritmo guloso, complexidade n log m
 void Viagem::viagemComRepeticao() {
-  // Primeiro ordena as ilhas por custo-beneficio (crescente) -> complexidade
-  // n log n
-  mergeSort(ilhas, 0, quantidade_ilhas - 1);
-
+  // Primeiro ordena as ilhas por custo-beneficio (decrescente) -> complexidade
+  // m log m
   int i = 0;  // índice para acessar as ilhas
   int pontuacao = 0,
       dias = 0;  // variáveis somadoras, serão o resultado final
   int dinheiro_disponivel =
       this->custo_total;  // quantidade de dinheiro atualmente disponível,
                           // decresce conforme executamos
+
+  mergeSort(ilhas, 0, quantidade_ilhas - 1);
 
   // Inicia a iteração sobre as ilhas
   while (i < this->quantidade_ilhas) {
@@ -124,7 +124,7 @@ void Viagem::merge(Ilha ilhas[], int esquerda, int meio, int direita) {
 
   // Compara e faz o merge num novo array na ordem correta
   for (k = esquerda; i < tamanho_esquerda && j < tamanho_direita; k++) {
-    if (vetor_esquerda[i].getCustoBeneficio() <
+    if (vetor_esquerda[i].getCustoBeneficio() >
         vetor_direita[j].getCustoBeneficio()) {
       ilhas[k] = vetor_esquerda[i++];
     } else {
