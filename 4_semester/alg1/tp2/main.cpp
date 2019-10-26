@@ -42,34 +42,34 @@ int main(int argc, char **argv) {
 
   // Calcula as duas soluções
 
-  double guloso[10], dinamico[10];
-  for (int i = 0; i < 10; i++) {
+  double guloso[11], dinamico[11];
+  for (int i = 0; i < 11; i++) {
     auto start = high_resolution_clock::now();
 
     viagem->viagemComRepeticao();
 
-    auto stop = high_resolution_clock::now(); 
+    auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    guloso[i] =duration.count();
+    guloso[i] = duration.count();
   }
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 11; i++) {
     auto start = high_resolution_clock::now();
 
     viagem->viagemSemRepeticao();
 
-    auto stop = high_resolution_clock::now(); 
+    auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    dinamico[i] =duration.count();
+    dinamico[i] = duration.count();
   }
 
   cout << "TEMPOS GULOSO:" << endl;
-  for (int i = 1; i < 10; i++) {
-    cout <<  std::setprecision(2) << std::fixed << guloso[i] << " ";
+  for (int i = 1; i < 11; i++) {
+    cout << std::setprecision(2) << std::fixed << guloso[i] << " ";
   }
   cout << endl;
   cout << "TEMPOS dinamico:" << endl;
-  for (int i = 1; i < 10; i++) {
+  for (int i = 1; i < 11; i++) {
     cout << std::setprecision(2) << dinamico[i] << " ";
   }
   cout << endl;
