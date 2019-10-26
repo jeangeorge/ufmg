@@ -4,8 +4,8 @@
 #include "Ilha.hpp"
 #include "Viagem.hpp"
 
-#include <windows.h>
 #include <chrono>
+#include <iomanip>
 using namespace std::chrono;
 
 using namespace std;
@@ -42,44 +42,35 @@ int main(int argc, char **argv) {
 
   // Calcula as duas soluções
 
-  double guloso[11], dinamico[11];
-  for (int i = 0; i < 11; i++) {
-    LARGE_INTEGER frequency;
-    LARGE_INTEGER start;
-    LARGE_INTEGER end;
-    double interval;
-    QueryPerformanceFrequency(&frequency);
-    QueryPerformanceCounter(&start);
+  double guloso[10], dinamico[10];
+  for (int i = 0; i < 10; i++) {
+    auto start = high_resolution_clock::now();
 
     viagem->viagemComRepeticao();
 
-    QueryPerformanceCounter(&end);
-    interval = (double)(end.QuadPart - start.QuadPart) / frequency.QuadPart;
-    guloso[i] = interval * (1e+6);
+    auto stop = high_resolution_clock::now(); 
+    auto duration = duration_cast<microseconds>(stop - start);
+    guloso[i] =duration.count();
   }
 
-  for (int i = 0; i < 11; i++) {
-    LARGE_INTEGER frequency;
-    LARGE_INTEGER start;
-    LARGE_INTEGER end;
-    double interval;
-    QueryPerformanceFrequency(&frequency);
-    QueryPerformanceCounter(&start);
+  for (int i = 0; i < 10; i++) {
+    auto start = high_resolution_clock::now();
+
     viagem->viagemSemRepeticao();
 
-    QueryPerformanceCounter(&end);
-    interval = (double)(end.QuadPart - start.QuadPart) / frequency.QuadPart;
-    dinamico[i] = interval * (1e+6);
+    auto stop = high_resolution_clock::now(); 
+    auto duration = duration_cast<microseconds>(stop - start);
+    dinamico[i] =duration.count();
   }
 
   cout << "TEMPOS GULOSO:" << endl;
-  for (int i = 1; i < 11; i++) {
-    cout << guloso[i] << " ";
+  for (int i = 1; i < 10; i++) {
+    cout <<  std::setprecision(2) << std::fixed << guloso[i] << " ";
   }
   cout << endl;
   cout << "TEMPOS dinamico:" << endl;
-  for (int i = 1; i < 11; i++) {
-    cout << dinamico[i] << " ";
+  for (int i = 1; i < 10; i++) {
+    cout << std::setprecision(2) << dinamico[i] << " ";
   }
   cout << endl;
 
