@@ -7,16 +7,15 @@ class Sudoku {
  public:
   Sudoku(std::ifstream *arquivo);
   ~Sudoku();
-  int **getSolucao();
-  void imprimirMatriz(int **matriz, int m, int n);
-  void mostrar();
 
-  bool SolveSudoku();
-  bool FindUnassignedLocation(int &row, int &col);
-  bool UsedInRow(int row, int num);
-  bool UsedInCol(int col, int num);
-  bool UsedInBox(int boxStartRow, int boxStartCol, int num);
-  bool isSafe(int row, int col, int num);
+  int **getSolucao();
+  void mostrar();
+  bool resolver();
+  bool existePosicaoVazia(int &linha, int &coluna);
+  bool existeConflitoLinha(int linha, int digito);
+  bool existeConflitoColuna(int coluna, int digito);
+  bool existeConflitoBloco(int linha, int coluna, int digito);
+  bool existeConflito(int linha, int coluna, int digito);
 
  private:
   int tamanho, linhas, colunas;

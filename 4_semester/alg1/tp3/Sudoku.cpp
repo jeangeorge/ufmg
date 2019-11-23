@@ -34,91 +34,113 @@ Sudoku::~Sudoku() {
 // Retorna a solução armazenada para o sudoku
 int **Sudoku::getSolucao() { return solucao; }
 
-// Método para printar uma matriz
-void Sudoku::imprimirMatriz(int *matriz[], int m, int n) {
-  for (int i = 0; i < m; i++) {
-    for (int j = 0; j < n; j++) {
-      cout << matriz[i][j] << " ";
-    }
-    cout << endl;
-  }
-}
-
-bool Sudoku::SolveSudoku() {
+// Função que tenta resolver o Sudoku
+bool Sudoku::resolver() {
   int linha, coluna;
 
-  // If there is no unassigned location,
-  // we are done
-  if (!FindUnassignedLocation(linha, coluna)) return true;  // success!
+  // Se não existe posição vazia no Sudoku, significa que todas as posições
+  // foram preenchidas, portanto o Sudoku foi solucionado
+  if (!existePosicaoVazia(linha, coluna)) {
+    return true;
+  }
 
-  // consider digits 1 to 9
-  for (int num = 1; num <= tamanho; num++) {
-    // if looks promising
-    if (isSafe(linha, coluna, num)) {
-      // make tentative assignment
-      tabela[linha][coluna] = num;
+  // Iteramos de 1 ao tamanho
+  // Sudoku 9x9 possui dígitos entre 1-9
+  // Sudoku 8x8 possui dígitos entre 1-8
+  for (int digito = 1; digito <= tamanho; digito++) {
+    // Avalia se não existem conflitos na possível atribuição
+    if (!existeConflito(linha, coluna, digito)) {
+      // Preenche aquela posição da tabela com o dígito em questão
+      tabela[linha][coluna] = digito;
 
-      // return, if success, yay!
-      if (SolveSudoku()) return true;
+      // Tenta resolver o restante do Sudoku
+      if (resolver()) {
+        // Se conseguir resolver, retorna true
+        return true;
+      }
 
-      // failure, unmake & try again
+      // Caso não consiga resolver, redefine a posição.
       tabela[linha][coluna] = 0;
+      // Voltará para o início do loop, testando para o valor dígito+1, e assim
+      // sucessetivamente
     }
   }
   return false;  // this triggers backtracking
 }
 
-/* Searches the grid to find an entry that is
-still unassigned. If found, the reference
-parameters row, col will be set the location
-that is unassigned, and true is returned.
-If no unassigned entries remain, false is returned. */
-bool Sudoku::FindUnassignedLocation(int &row, int &col) {
-  for (row = 0; row < tamanho; row++)
-    for (col = 0; col < tamanho; col++)
-      if (tabela[row][col] == 0) return true;
+/* Função que verifica se existe posição não preenchida no Sudoku. Caso exista
+ * posição vazia, retorna true e as variaveis 'linha' e 'coluna' conterão a
+ * posição na tabela onde a célula vazia está. Caso não exista, retorna false
+ */
+bool Sudoku::existePosicaoVazia(int &linha, int &coluna) {
+  for (linha = 0; linha < tamanho; linha++) {
+    for (coluna = 0; coluna < tamanho; coluna++) {
+      if (tabela[linha][coluna] == 0) {
+        return true;
+      }
+    }
+  }
   return false;
 }
 
-/* Returns a boolean which indicates whether
-an assigned entry in the specified row matches
-the given number. */
-bool Sudoku::UsedInRow(int row, int num) {
-  for (int col = 0; col < tamanho; col++)
-    if (tabela[row][col] == num) return true;
+/* Dado uma linha fixada, verifica se o digito está presente naquela linha. */
+bool Sudoku::existeConflitoLinha(int linha, int digito) {
+  for (int coluna = 0; coluna < tamanho; coluna++) {
+    if (tabela[linha][coluna] == digito) {
+      return true;
+    }
+  }
   return false;
 }
 
-/* Returns a boolean which indicates whether
-an assigned entry in the specified column
-matches the given number. */
-bool Sudoku::UsedInCol(int col, int num) {
-  for (int row = 0; row < tamanho; row++)
-    if (tabela[row][col] == num) return true;
+/* Dado uma linha coluna, verifica se o digito está presente naquela coluna. */
+bool Sudoku::existeConflitoColuna(int coluna, int digito) {
+  for (int linha = 0; linha < tamanho; linha++) {
+    if (tabela[linha][coluna] == digito) {
+      return true;
+    }
+  }
   return false;
 }
 
-/* Returns a boolean which indicates whether
-an assigned entry within the specified linhasxcolunas box
-matches the given number. */
-bool Sudoku::UsedInBox(int boxStartRow, int boxStartCol, int num) {
-  for (int row = 0; row < linhas; row++)
-    for (int col = 0; col < colunas; col++)
-      if (tabela[row + boxStartRow][col + boxStartCol] == num) return true;
+/* Dado uma linha, uma coluna  e um dígito, avalia se é possível atribuir aquele
+ * dígito a tabela[linha][coluna], levando em consideração o bloco */
+bool Sudoku::existeConflitoBloco(int linha, int coluna, int num) {
+  int inicio_bloco_linha = linha - linha % linhas;
+  int inicio_bloco_coluna = coluna - coluna % colunas;
+  for (int i = 0; i < linhas; i++) {
+    for (int j = 0; j < colunas; j++) {
+      if (tabela[i + inicio_bloco_linha][j + inicio_bloco_coluna] == num) {
+        return true;
+      }
+    }
+  }
   return false;
 }
 
-/* Returns a boolean which indicates whether
-it will be legal to assign num to the given
-row, col location. */
-bool Sudoku::isSafe(int row, int col, int num) {
-  /* Check if 'num' is not already placed in
-  current row, current column and current  box */
-  return !UsedInRow(row, num) && !UsedInCol(col, num) &&
-         !UsedInBox(row - row % linhas, col - col % colunas, num) &&
-         tabela[row][col] == 0;
+/* Verifica se será legal atribuir à posição [linha,coluna] o dígito em
+ * questão. A atribuição será válida se, e somente se, não exister um outro
+ * dígito igual na mesma linha, mesma coluna e mesmo bloco. Se por algum motivo
+ * a posição [linha][coluna] da matriz já estiver preenchida também
+ * consideraremos como um conflito.
+ */
+bool Sudoku::existeConflito(int linha, int coluna, int digito) {
+  if (existeConflitoLinha(linha, digito)) {
+    return true;
+  }
+  if (existeConflitoColuna(coluna, digito)) {
+    return true;
+  }
+  if (existeConflitoBloco(linha, coluna, digito)) {
+    return true;
+  }
+  if (tabela[linha][coluna] != 0) {
+    return true;
+  }
+  return false;
 }
 
+// Função que percorre a matriz/Sudoku e a mostra
 void Sudoku::mostrar() {
   for (int i = 0; i < tamanho; i++) {
     for (int j = 0; j < tamanho; j++) {
