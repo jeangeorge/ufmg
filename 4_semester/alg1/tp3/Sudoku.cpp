@@ -31,9 +31,6 @@ Sudoku::~Sudoku() {
   delete[] tabela;
 }
 
-// Retorna a solução armazenada para o sudoku
-int **Sudoku::getSolucao() { return solucao; }
-
 // Função que tenta resolver o Sudoku
 bool Sudoku::resolver() {
   int linha, coluna;
