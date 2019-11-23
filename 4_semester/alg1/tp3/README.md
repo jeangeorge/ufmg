@@ -1,3 +1,3 @@
-# TP2 da Disciplina "Algoritmos 1"
+# TP3 da Disciplina "Algoritmos 1"
 
-Paradigma de programação gulosa & paradigma de programação dinânamica.
+Resolução de diferentes Sudoku's utilizando Backtracking.
