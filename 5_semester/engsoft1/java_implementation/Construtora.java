@@ -25,8 +25,10 @@ public class Construtora {
         this.orgaoPublicos = new ArrayList<>();
         this.atendentes = new ArrayList<>();
         this.engenheiros = new ArrayList<>();
+        this.tecnicos = new ArrayList<>();
         this.gerente = new Gerente("Gerente", 15000);
         carregarDados();
+        System.out.println("Seja bem vindo à " + nome + "!");
     }
 
     private void carregarDados() {
