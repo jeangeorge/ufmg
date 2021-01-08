@@ -1,0 +1,16 @@
+a) i+r
+Primeira operação | i+r: int * real -> real
+
+b) i+r+i
+Primeira operação | (i+r): int * real -> real
+Segunda operação | (resultado operação 1 + i): real * int -> real
+
+c) i+(r+i)
+Primeira operação | (r+i): real * int -> real
+Segunda operação | i + resultado operação 1: int * real -> real
+
+d) i+i+r+(r+i)
+Primeira operação - (r+i): real * int -> real
+Segunda operação - i+i: int * int -> int
+Terceira operação - resultado segunda operação + r: • int * real -> real
+Quarta opperação - resultado terceira operação + resultado primeira operação: real * real -> real
