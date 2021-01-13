@@ -1,8 +1,9 @@
 all:
+	g++ -c console.cpp
 	gcc -Wall -c common.c
-	gcc -Wall client.c common.o -o client
-	gcc -Wall server.c common.o -o server
-	gcc -Wall server-mt.c common.o -lpthread -o server-mt
+	g++ -Wall cliente.cpp console.o common.o -lpthread  -o clientecpp
+	g++ -Wall cliente.c common.o -lpthread  -o cliente
+	gcc -Wall servidor.c common.o -lpthread -o servidor
 
 clean:
-	rm common.o client server server-mt
+	rm common.o cliente servidor clientecpp

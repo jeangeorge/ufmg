@@ -1,5 +1,6 @@
 #include "common.h"
 
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,6 +17,30 @@ void usage(int argc, char **argv) {
 }
 
 #define BUFSZ 1024
+
+void *recv_thread(void *data) {
+    int s = (intptr_t)data;
+    size_t count;
+    unsigned total = 0;
+    char buf[BUFSZ];
+    memset(buf, 0, BUFSZ);
+
+    while (strchr(buf, '\n') == NULL && total <= 500) {
+        if (strcmp(buf, "##kill\n") == 0) {
+            close(s);
+            exit(EXIT_SUCCESS);
+        }
+        count = recv(s, buf + total, BUFSZ - total, 0);
+        if (count == 0) {
+            break;
+        }
+        total += count;
+    }
+
+    printf("%s", buf);
+
+    pthread_exit(EXIT_SUCCESS);
+}
 
 int main(int argc, char **argv) {
     if (argc < 3) {
@@ -46,26 +71,19 @@ int main(int argc, char **argv) {
     memset(buf, 0, BUFSZ);
 
     size_t count;
-    unsigned total = 0;
 
     while (1) {
+        pthread_t tid;
+        pthread_create(&tid, NULL, recv_thread, (void *)(intptr_t)s);
         memset(buf, 0, BUFSZ);
-        printf("mensagem> ");
+        printf("> ");
         fgets(buf, BUFSZ - 1, stdin);
         count = send(s, buf, strlen(buf) + 1, 0);
         if (count != strlen(buf) + 1) {
             logexit("send");
         }
-
-        count = recv(s, buf + total, BUFSZ - total, 0);
-        printf("received %ld bytes\n", count);
-        puts(buf);
-        if (count == 0) {
-            // Connection terminated.
-            break;
-        }
-        total += count;
     }
+
     close(s);
 
     exit(EXIT_SUCCESS);
