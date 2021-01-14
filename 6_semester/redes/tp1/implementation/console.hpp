@@ -13,39 +13,33 @@
 #include <thread>
 #include <unistd.h>
 
-class Console {
+class Console
+{
 private:
-    // mutex for console I/O
-    std::mutex _mtx;
-    // current input
-    std::string _input;
-    // prompt output
-    std::string _prompt;
+	std::mutex _mtx;
+	std::string _input;
+	std::string _prompt;
 
 public:
-    Console() {}
+	Console() {}
 
-    Console(const Console &) = delete;
-    Console &operator=(const Console &) = delete;
+	Console(const Console &) = delete;
+	Console &operator=(const Console &) = delete;
 
-    std::string read();
+	std::string read();
 
-    void write(const char *text, size_t size);
-    void write(const char *text) { write(text, strlen(text)); }
-    void write(const std::string &text) { write(text.c_str(), text.size()); }
+	void write(const char *text, size_t size);
+	void write(const char *text) { write(text, strlen(text)); }
+	void write(const std::string &text) { write(text.c_str(), text.size()); }
 };
 
-struct Flags // this flag is shared between both the threads
+struct Flags
 {
-    // flag: true then exit communication thread and main loop
-    bool exit;
-    // flag: true then start data processing
-    bool start;
-    // the mini console
-    Console console;
+	bool exit;
+	bool start;
+	Console console;
 
-    // constructor.
-    Flags() : exit(false), start(true) {}
+	Flags() : exit(false), start(true) {}
 };
 
 void dataProc(Flags &shared);

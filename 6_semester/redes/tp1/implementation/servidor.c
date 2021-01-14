@@ -30,8 +30,6 @@ struct client_data
 int clients_number = 0;
 struct client_data **clients;
 
-int running = 1;
-
 // Obter tag de interesse: metodo chamado caso seja uma msg de subscribe/unsubscribe, retorna a tag por referencia na variavel tag
 int get_interest_tag(char *msg, char *tag)
 {
@@ -254,69 +252,16 @@ void disconect_all()
 }
 
 // Metodo para disconectar um unico cliente
-void disconect_one(const int client_pos)
+void disconect_one(const int client_pos, char *caddrstr)
 {
 	// Fecha a conexão do cliente
 	clients[client_pos]->connected = 0;
 	close(clients[client_pos]->csock);
+	printf("[log] client %s disconnected\n", caddrstr);
 }
 
 // Função chamada pela thread para receber constantemente dados de clientes
 void *client_thread(void *data)
-{
-	int client_pos = (intptr_t)data;
-
-	// Mostra o endereço do cliente
-	char caddrstr[BUFSZ];
-	addrtostr((struct sockaddr *)(&clients[client_pos]->storage), caddrstr, BUFSZ);
-	printf("[log] connection from %s\n", caddrstr);
-
-	// Cria um buf e inicialzia ele
-	char buf[BUFSZ];
-	memset(buf, 0, BUFSZ);
-	size_t count;
-
-	// Chama o receive para receber os dados e mostra o que foi recebido
-	while (1)
-	{
-		memset(buf, 0, BUFSZ);
-		count = recv(clients[client_pos]->csock, buf, BUFSZ - 1, 0);
-
-		if (is_valid_message(buf) == 0)
-		{
-			printf("[log] invalid message received from %s, client will be disconnected\n", caddrstr);
-			disconect_one(client_pos);
-			break;
-		}
-
-		// Verifica se deve encerrar o servidor
-		if (strcmp(buf, "##kill\n") == 0)
-		{
-			printf("[log] kill message received from %s, all clients will be disconnected\n", caddrstr);
-			disconect_all();
-			exit(EXIT_SUCCESS);
-			break;
-		}
-
-		printf("[msg] %s, %d bytes: %s\n", caddrstr, (int)count, buf);
-
-		// Verificação de subscribe/unsubscribe
-		if (buf[0] == '+' || buf[0] == '-')
-		{
-			// Se for, trata no metodo handle_tag
-			handle_tag(client_pos, buf);
-		}
-		else
-		{
-			// Se nao for subscribe/unsubscribe é uma mensagem normal, trata ela no metodo handle_message
-			handle_message(buf);
-		}
-	}
-	close(clients[client_pos]->csock);
-	pthread_exit(EXIT_SUCCESS);
-}
-
-void *client_thread2(void *data)
 {
 	int client_pos = (intptr_t)data;
 	char buf[BUFSZ];
@@ -344,7 +289,7 @@ void *client_thread2(void *data)
 			if (is_valid_message(buf) == 0)
 			{
 				printf("[log] invalid message received from %s, client will be disconnected\n", caddrstr);
-				disconect_one(client_pos);
+				disconect_one(client_pos, caddrstr);
 				break;
 			}
 			// Verifica se deve encerrar o servidor
@@ -360,6 +305,11 @@ void *client_thread2(void *data)
 			{
 				break;
 			}
+		}
+		if (total == 0)
+		{
+			disconect_one(client_pos, caddrstr);
+			break;
 		}
 		printf("[msg] %s, %d bytes: %s\n", caddrstr, (int)count, buf);
 		// Verificação de subscribe/unsubscribe
@@ -469,7 +419,7 @@ int main(int argc, char **argv)
 		// Cria uma thread passando a rotina que será rodada em separado na
 		// thread
 		pthread_t tid;
-		pthread_create(&tid, NULL, client_thread2,
+		pthread_create(&tid, NULL, client_thread,
 					   (void *)(intptr_t)(clients_number - 1));
 	}
 
