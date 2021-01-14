@@ -1,0 +1,1 @@
+Os arquivos binários output1.txt e test1-output1.txt são diferentes
