@@ -1,0 +1,29 @@
+fun g =
+	let
+		val inc = 1
+		fun f y = y + inc
+		fun h z =
+			let
+				val inc = 2
+			in
+				f z
+			end
+	in
+		h x
+	end
+
+a)
+Bloco 1: Linha 2 a 13
+Bloco 2: Linha 3 a 10
+Bloco 3: Linha 4
+Bloco 4: Linha 5 a 10
+
+b) inc
+
+c)
+
+d) O valor de g 5 é 6, porque como SML Possui escopo estático na linha 4 seria levado em consideração
+a variável inc declarada na linha 3 e não na linha 7.
+Caso SML tivese escopo dinâmico, o resultado seria 7, uma vez que seria levado em consideração
+a variável inc declarada na linha 7 e não na linha 3.
+O motivo é justamente SML ter escopo estático, escopos externos são sempre escolhidos.
