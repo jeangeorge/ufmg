@@ -119,7 +119,7 @@ def main(argv):
 		print("Invalid program arguments")
 		sys.exit()
 
-	# Se eh compressao ou descompressao: -c ou -x
+	# Se eh compressao ou descompressao: -c / -x (ou -t para testes)
 	operation_type = argv[1]
 	if not is_valid_operation_type(operation_type):
 		print("Invalid operation type")

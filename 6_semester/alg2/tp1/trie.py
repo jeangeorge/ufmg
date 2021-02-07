@@ -6,11 +6,11 @@ from node import Node
 from utils import *
 
 class Trie(object):
-	def __init__(self, byte_size, encoding):
+	def __init__(self, number_size, encoding):
 		self.index = 0
 		self.root = Node("")
 		self.compressed_text = bytearray(0)
-		self.byte_size = byte_size
+		self.number_size = number_size
 		self.encoding = encoding
 
 	# Inserindo uma palavra na trie
@@ -74,6 +74,6 @@ class Trie(object):
 
 	# Recebe um index e o texto e concatena no array de bytes resultante
 	def set_compressed_text(self, index, text):
-		index_bytes = index.to_bytes(length=self.byte_size, byteorder='big')
+		index_bytes = index.to_bytes(length=self.number_size, byteorder='big')
 		text_bytes = text.encode(self.encoding)
 		self.compressed_text = b"".join([self.compressed_text, index_bytes, text_bytes])
