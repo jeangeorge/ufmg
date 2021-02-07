@@ -1,5 +1,6 @@
 import sys
 import glob, os
+import filecmp
 
 from trie import Trie
 from utils import *
@@ -44,9 +45,11 @@ def decompress_file(input_file, output_file=""):
 	with open(input_file, mode="rb") as file:
 		binary = file.read()
 
-	# Percorre o arquivo binario, caractere a caractere andando em passo NUMBER_SIZE + 1
-	# for i in range(0, len(binary), NUMBER_SIZE + 1):
+	# Percorre o arquivo binario
 	while i < len(binary):
+		# Pega o index (caractere numerico) do algoritmo, eh utilizado NUMBER_SIZE porque o inteiro foi armazenado com essa quantidade de bytes
+		index = int.from_bytes(binary[i : i + NUMBER_SIZE], byteorder="big")
+		# Como nao sabemos exatamente o tamanho do caractere (pode ser 1, 2, 3 ou 4 bytes) fazemos o tratamento abaixo para pegar o valor correto
 		value_byte = binary[i + NUMBER_SIZE : i + NUMBER_SIZE + 4]
 		string_binary = "{0:b}".format(value_byte[0]).zfill(8)
 		byte_interval = 1
@@ -56,15 +59,17 @@ def decompress_file(input_file, output_file=""):
 			byte_interval = 3
 		elif string_binary.startswith("11110"):
 			byte_interval = 4
-		index = int.from_bytes(binary[i : i + NUMBER_SIZE], byteorder="big")
+		# Para 1 byte, convertemos com conversao simples e para mais bytes fazemos o decode
 		if byte_interval == 1:
 			value = chr(binary[i + NUMBER_SIZE])
 		else:
 			value = value_byte[0:byte_interval].decode(ENCODING)
+		# Atualizamos o dict e o texto descomprimido
 		string = words[index] + value
 		words[size] = string
 		uncompressed_text += string
 		size += 1
+		# Andamos com o i a quantidade necessaria
 		i += NUMBER_SIZE + byte_interval
 
 	# Define o nome do arquivo de saida
@@ -73,10 +78,15 @@ def decompress_file(input_file, output_file=""):
 	else:
 		file_name = input_file.replace(".z78", ".txt")
 
+	if uncompressed_text[-1] == "ぁ":
+		uncompressed_text = uncompressed_text[:-1]
+
 	# Tenta escrever no arquivo
 	with open(file_name, mode="w") as file:
-		file.write(uncompressed_text[:-1])
+		file.write(uncompressed_text)
 
+# Funcao que testa todos os arquivos .txt presentes na pasta tests
+# Isto eh, comprime eles, descomprime e
 def test(file_name):
 	os.makedirs("./tests/results", exist_ok=True)
 	os.chdir("./tests")
@@ -92,7 +102,11 @@ def test(file_name):
 		original_size = os.path.getsize("./" + input_file)
 		compressed_size = os.path.getsize(output_file)
 		ratio = original_size / compressed_size
-		text += input_file + " - comp ratio: " + "{}".format(ratio) + "\n"
+		if filecmp.cmp(output_file.replace(".z78",".txt"), input_file):
+			equal = "yes"
+		else:
+			equal = "no"
+		text += input_file + " - comp ratio: " + "{}".format(ratio) + " - equal: " + equal + "\n"
 	print("tests saved!")
 	with open("./results/" + file_name, mode="w") as file:
 		file.write(text)
