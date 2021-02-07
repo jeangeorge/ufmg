@@ -1,19 +1,20 @@
 import sys
+import glob, os
 
 from trie import Trie
 from utils import *
 from datetime import datetime
 
-BYTE_SIZE = 3
+NUMBER_SIZE = 3
 ENCODING = "utf-8"
 
-def compress_file(input_file, output_file):
+def compress_file(input_file, output_file=""):
 	# Tenta abrir arquivo e pegar o texto
-	with open(input_file, "r") as file:
+	with open(input_file, "r", encoding=ENCODING) as file:
 		text = file.read()
 
 	# Instancia a trie
-	trie = Trie(BYTE_SIZE, ENCODING)
+	trie = Trie(NUMBER_SIZE, ENCODING)
 
 	# Popula a trie com o texto e obtem o texto compactado
 	compressed_text = trie.populate_and_compress(text)
@@ -28,7 +29,7 @@ def compress_file(input_file, output_file):
 	with open(file_name, "wb") as file:
 		file.write(compressed_text)
 
-def decompress_file(input_file, output_file):
+def decompress_file(input_file, output_file=""):
 	# Dicionario para armazenar as palavras
 	words = {0: ""}
 
@@ -38,22 +39,33 @@ def decompress_file(input_file, output_file):
 	# Variavel tamanho auxiliar
 	size = 1
 
+	i = 0
 	# Tenta abrir e ler o arquivo binario
 	with open(input_file, mode="rb") as file:
 		binary = file.read()
 
-	# Percorre o arquivo binario, caractere a caractere andando em passo BYTE_sIZE + 1
-	for i in range(0, len(binary), BYTE_SIZE + 1):
-		if (i + BYTE_SIZE >= len(binary)):
-			continue
-		# Pega o "index na trie"
-		index = int.from_bytes(binary[i : i + BYTE_SIZE], byteorder="big")
-		# Pega a palavra
-		value = chr(binary[i + BYTE_SIZE])
+	# Percorre o arquivo binario, caractere a caractere andando em passo NUMBER_SIZE + 1
+	# for i in range(0, len(binary), NUMBER_SIZE + 1):
+	while i < len(binary):
+		value_byte = binary[i + NUMBER_SIZE : i + NUMBER_SIZE + 4]
+		string_binary = "{0:b}".format(value_byte[0]).zfill(8)
+		byte_interval = 1
+		if string_binary.startswith("110"):
+			byte_interval = 2
+		elif string_binary.startswith("1110"):
+			byte_interval = 3
+		elif string_binary.startswith("11110"):
+			byte_interval = 4
+		index = int.from_bytes(binary[i : i + NUMBER_SIZE], byteorder="big")
+		if byte_interval == 1:
+			value = chr(binary[i + NUMBER_SIZE])
+		else:
+			value = value_byte[0:byte_interval].decode(ENCODING)
 		string = words[index] + value
 		words[size] = string
 		uncompressed_text += string
 		size += 1
+		i += NUMBER_SIZE + byte_interval
 
 	# Define o nome do arquivo de saida
 	if output_file:
@@ -63,7 +75,27 @@ def decompress_file(input_file, output_file):
 
 	# Tenta escrever no arquivo
 	with open(file_name, mode="w") as file:
-		file.write(uncompressed_text)
+		file.write(uncompressed_text[:-1])
+
+def test(file_name):
+	os.makedirs("./tests/results", exist_ok=True)
+	os.chdir("./tests")
+	text = ""
+	print("init tests")
+	for input_file in glob.glob("*.txt"):
+		if input_file == file_name:
+			continue
+		print("working with " + input_file + "...")
+		output_file = "./results/" + input_file.replace(".txt", "-output.z78")
+		compress_file(input_file, output_file)
+		decompress_file(output_file)
+		original_size = os.path.getsize("./" + input_file)
+		compressed_size = os.path.getsize(output_file)
+		ratio = original_size / compressed_size
+		text += input_file + " - comp ratio: " + "{}".format(ratio) + "\n"
+	print("tests saved!")
+	with open("./results/" + file_name, mode="w") as file:
+		file.write(text)
 
 # Funcao inicial do programa
 def main(argv):
@@ -96,8 +128,11 @@ def main(argv):
 	# Realiza a compressao / descompressao
 	if operation_type == "-c":
 		compress_file(input_file, output_file)
-	else:
+	elif operation_type == "-x":
 		decompress_file(input_file, output_file)
+	else:
+		test(input_file)
+
 
 if __name__ == "__main__":
 	main(sys.argv)

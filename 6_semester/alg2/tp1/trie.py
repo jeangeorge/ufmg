@@ -49,10 +49,6 @@ class Trie(object):
 
 	# Inserindo os dados na trie e atualizando o texto comprimido
 	def populate_and_compress(self, text):
-		# Foi preciso validar se os caracteres sao ascii
-		if not is_ascii(text):
-			print("text contains invalid characters, remove them and try again")
-			sys.exit()
 		word = ''
 		i = 0
 		# Percorre o texto caractere a caractere
