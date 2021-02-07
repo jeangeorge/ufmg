@@ -63,7 +63,7 @@ def decompress_file(input_file, output_file):
 
 	# Tenta escrever no arquivo
 	with open(file_name, mode="w") as file:
-		file.write(uncompressed_text[:-1])
+		file.write(uncompressed_text)
 
 # Funcao inicial do programa
 def main(argv):
