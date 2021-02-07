@@ -49,7 +49,6 @@ def decompress_file(input_file, output_file):
 		# Pega o "index na trie"
 		index = int.from_bytes(binary[i : i + BYTE_SIZE], byteorder="big")
 		# Pega a palavra
-		# print([i + BYTE_SIZE])
 		value = chr(binary[i + BYTE_SIZE])
 		string = words[index] + value
 		words[size] = string
