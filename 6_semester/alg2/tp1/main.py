@@ -1,32 +1,73 @@
 import sys
-import os
 
 from trie import Trie
 from utils import *
+from datetime import datetime
+
+BYTE_SIZE = 3
+DECODING_MODE = "utf8"
 
 def compress_file(input_file, output_file):
 	# Tenta abrir arquivo e pegar o texto
 	with open(input_file, "r") as file:
 		text = file.read()
 
-	# Instancia a trie inicial
-	trie = Trie()
+	# Instancia a trie
+	trie = Trie(BYTE_SIZE, DECODING_MODE)
 
+	# Popula a trie com o texto e obtem o texto compactado
 	compressed_text = trie.populate_and_compress(text)
+
+	# Pega o nome do arquivo
 	if output_file:
 		file_name = output_file
 	else:
 		file_name = input_file.replace('.txt', '.z78')
 
+	# Escreve o binario do arquivo comprimido
 	with open(file_name, 'wb') as file:
-		encoded_compressed_text = compressed_text.encode('utf-8')
-		file.write(encoded_compressed_text)
+		file.write(compressed_text)
 
 def decompress_file(input_file, output_file):
-	trie = Trie()
+	# Tenta abrir e ler o arquivo binario
+	with open(input_file, mode="rb") as file:
+		binary = file.read()
+
+	# Dicionario para armazenar as palavras
+	words = {0: ""}
+
+	# O texto descomprimido
+	uncompressed_text = ""
+
+	# Variavel tamanho auxiliar
+	size = 1
+
+	# Percorre o arquivo binario, caractere a caractere andando em passo BYTE_sIZE + 1
+	for i in range(0, len(binary), BYTE_SIZE + 1):
+		# Validacao para nao bugar no fim do arquivo
+		if i + BYTE_SIZE >= len(binary):
+			continue
+		# Pega o "index na trie"
+		index = int.from_bytes(binary[i : i + BYTE_SIZE], byteorder="big")
+		# Pega a palavra
+		value = chr(binary[i + BYTE_SIZE])
+		# Monta a palavra e adiciona no dicionario
+		string = words[index] + value
+		words[size] = string
+		uncompressed_text += string
+		size += 1
+
+	# Define o nome do arquivo de saida
+	if output_file:
+		file_name = output_file
+	else:
+		file_name = input_file.replace('.z78', '.txt')
+
+	# Tenta escrever no arquivo
+	with open(file_name, mode="w") as file:
+		file.write(uncompressed_text[:-1])
 
 # Funcao inicial do programa
-# ./<programa> -c teste.txt >>>>> resulta em >>>>> teste.z78
 def main(argv):
 	# Tenta pegar os argumentos
 	# Menos de tres argumentos indica o erro, nesse caso o programa deve ser encerrado
