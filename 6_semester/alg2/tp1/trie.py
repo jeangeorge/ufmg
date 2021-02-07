@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
 from node import Node
+from utils import *
 
 class Trie(object):
-	def __init__(self, byte_size, decoding_mode):
+	def __init__(self, byte_size, encoding):
 		self.index = 0
 		self.root = Node("")
 		self.compressed_text = bytearray(0)
 		self.byte_size = byte_size
-		self.decoding_mode = decoding_mode
+		self.encoding = encoding
 
 	# Inserindo uma palavra na trie
 	def insert(self, word):
@@ -46,6 +49,10 @@ class Trie(object):
 
 	# Inserindo os dados na trie e atualizando o texto comprimido
 	def populate_and_compress(self, text):
+		# Foi preciso validar se os caracteres sao ascii
+		if not is_ascii(text):
+			print("text contains invalid characters, remove them and try again")
+			sys.exit()
 		word = ''
 		i = 0
 		# Percorre o texto caractere a caractere
@@ -65,12 +72,12 @@ class Trie(object):
 			elif i == len(text):
 				# Se encontrar a palavra e estivermos no fim do arquivo, adicionamos um caractere especial
 				# Isso foi necessario para nao bugar na descompressao
-				self.set_compressed_text(index_word, "ぁ")
+				self.set_compressed_text(index_word, 'ぁ')
 				word = ''
 		return self.compressed_text
 
 	# Recebe um index e o texto e concatena no array de bytes resultante
 	def set_compressed_text(self, index, text):
 		index_bytes = index.to_bytes(length=self.byte_size, byteorder='big')
-		text_bytes = text.encode(self.decoding_mode)
+		text_bytes = text.encode(self.encoding)
 		self.compressed_text = b"".join([self.compressed_text, index_bytes, text_bytes])

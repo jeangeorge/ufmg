@@ -7,3 +7,6 @@ def is_valid_operation_type(operation_type):
 def is_valid_file(file):
 	file_extension = file.split(".")[1]
 	return file_extension == "z78" or file_extension == "txt"
+
+def is_ascii(s):
+	return all(ord(c) < 128 for c in s)
