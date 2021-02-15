@@ -1,0 +1,1 @@
+fun multiPairs(list1, list2) = ListPair.map(fn (a, b) => a * b) (list1, list2);

@@ -1,0 +1,10 @@
+a) Em ML não existe o comando if-then, mas sim
+o if-then-else. Para o código funcionar seria necessário
+adicionar o bloco then ao invés de um ;
+
+b) O erro acontece porque a função de multiplicação espera
+receber dois valores inteiros, e o segundo valor passado
+é um real.
+
+c) Está ocorrendo uma redundância na declaração do padrão:
+fact(0) já havia sido definido anteriormente.

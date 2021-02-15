@@ -1,0 +1,10 @@
+!connect 1 51511 output1.txt
+!sleep 1
+!connect 2 51511 output2.txt
+!sleep 1
+!s2 +DiarioAlimentar
+!sleep 1
+!two1 boa tarde #MaisUmDia;;;bom almoco #DiarioAlimentar
+!sleep 1
+!s1 ##kill
+!sleep 1

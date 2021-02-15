@@ -1,0 +1,18 @@
+!connect 1 51511 output1.txt
+!sleep 1
+!s1 +dota
+!sleep 1
+!s1 i like playing #dota
+!sleep 1
+!connect 2 51511 output2.txt
+!sleep 1
+!s2 +dota
+!sleep 1
+!s2 #dota sucks
+!sleep 1
+!s2 -dota
+!sleep 1
+!s1 why u hate #dota tho
+!sleep 1
+!s1 ##kill
+!sleep 1

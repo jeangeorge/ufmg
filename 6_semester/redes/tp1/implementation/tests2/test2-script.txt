@@ -1,0 +1,10 @@
+!connect 1 51511 output1.txt
+!sleep 1
+!s1 +dota
+!sleep 1
+!append1 eu vou 
+!sleep 1
+!s1 jogar #dota
+!sleep 1
+!s1 ##kill
+!sleep 1

@@ -1,0 +1,9 @@
+- while ¬(x=1) do (y:=y*x; x:=x-1)
+Entrará em loop infinito caso o valor inicial de x seja menor do que 1. Caso contrário, o programa
+sempre se termina.
+
+- while 1 ≤ x do (y:=y*x; x:=x-1)
+Sempre termina.
+
+while true do skip
+Entrará em loop infinito, a condição será sempre verdadeira.

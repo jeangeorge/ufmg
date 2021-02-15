@@ -1,0 +1,3 @@
+Sabemos que s x = 3
+
+B[[¬(x=1)]] = B[[true]] = tt
