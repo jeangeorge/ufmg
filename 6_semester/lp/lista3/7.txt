@@ -1,0 +1,3 @@
+(a) Polimorfismo paramétrico: por conta da utilização de 
+templates para executar o mesmo código para tipos diferentes;
+?
