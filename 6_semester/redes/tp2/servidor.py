@@ -2,6 +2,7 @@ import socket
 import os
 import sys
 import struct
+import select
 
 from _thread import *
 
@@ -15,6 +16,9 @@ def get_free_udp_port():
 	udp.close()
 	return port
 
+files = {}
+udp_port = get_free_udp_port()
+
 # Thread para receber dados dos clientes
 def threaded_client(connection):
 	while True:
@@ -23,8 +27,6 @@ def threaded_client(connection):
 		if not data:
 			break
 		reply = ""
-		# Gera uma porta IPv4 UDP
-		udp_port = get_free_udp_port()
 		# Avalia os dois primeiros bytes da mensagem
 		message_type = struct.unpack(">h", data[:2])[0]
 		if message_type == HELLO:
@@ -37,7 +39,9 @@ def threaded_client(connection):
 		elif message_type == INFO_FILE:
 			# Caso tenhamos recebido um INFO_FILE:
 			# Alocamos o que precisa para a janela deslizante
-			# WIP
+			file_name = data[2:17].decode(ENCODING).replace('\0','')
+			file_size = struct.unpack(">q", data[17:])[0]
+			files[connection.getpeername()] = {(file_name,file_size)}
 			bytes_type = struct.pack(">h", OK)
 			reply = bytes_type
 			print("INFO FILE recebido, enviando OK para o cliente")
@@ -64,13 +68,21 @@ def main(argv):
 	if not port:
 		sys.exit()
 
-	# Cria um socket e define que o endereço pode ser reutilizado
+	# Cria um socket TCP e define que o endereço pode ser reutilizado
 	tcp_socket = socket.socket()
 	tcp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+	# Cria um socket UDP
+	udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 	# Tenta dar o bind em todos os endereços
 	try:
 		tcp_socket.bind(("{}".format(socket.INADDR_ANY), port))
+	except socket.error as e:
+		print(str(e))
+	try:
+		udp_socket.bind(("{}".format(socket.INADDR_ANY), udp_port))
 	except socket.error as e:
 		print(str(e))
 
@@ -78,13 +90,24 @@ def main(argv):
 	tcp_socket.listen(5)
 	print("Servidor rodando, aguardando conexões...")
 
-	thread_count = 0
 
 	while True:
-		client, address = tcp_socket.accept()
-		print("Conexão recebida de: " + address[0] + ":" + str(address[1]))
-		start_new_thread(threaded_client, (client,))
-		thread_count += 1
+		tcp_client, tcp_adress = tcp_socket.accept()
+		print("Conexão TCP recebida de: " + tcp_adress[0] + ":" + str(tcp_adress[1]))
+		start_new_thread(threaded_client, (tcp_client,))
+		f = open("out.txt", 'wb')
+		while True:
+			ready = select.select([udp_socket], [], [], 0.1)
+			if ready[0]:
+				data, udp_address = udp_socket.recvfrom(MAX_SIZE)
+				print(data)
+				f.write(data)
+			else:
+				print()
+				print ("Finish!")
+				f.close()
+				break
+	udp_socket.close()
 	tcp_socket.close()
 
 

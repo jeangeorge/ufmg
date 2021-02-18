@@ -6,36 +6,13 @@ import time
 
 from constants import *
 
-def teste():
-	ClientSocket = socket.socket()
-	host = "127.0.0.1"
-	port = 1233
-
-	print("Waiting for connection")
-	try:
-		ClientSocket.connect((host, port))
-	except socket.error as e:
-		print(str(e))
-
-	Response = ClientSocket.recv(MAX_SIZE)
-	while True:
-		Input = input("Say Something: ")
-		ClientSocket.send(str.encode(Input))
-		Response = ClientSocket.recv(MAX_SIZE)
-		print(Response.decode("utf-8"))
-
-	ClientSocket.close()
-
-
 def usage(argv):
 	print("usage: " + argv[0] + " <server IP> <server port> <file name>")
 	print("example: " + argv[0] + " 127.0.0.1 51511 file.doc")
 	sys.exit()
 
-
 def is_ascii(string):
 	return all(ord(char) < 128 for char in string)
-
 
 def is_valid_file_name(file_name):
 	if not file_name:
@@ -90,7 +67,7 @@ def main(argv):
 		print(str(e))
 		sys.exit()
 
-	# Nesse ponto ja esta conectado
+	# Nesse ponto ja esta conectado via TCP
 	# Envia a primeira mensagem de HELLO
 	hello_message = struct.pack(">h", HELLO)
 	tcp_socket.send(hello_message)
@@ -115,7 +92,8 @@ def main(argv):
 		tcp_socket.send(message_info_file)
 		# Obtemos a resposta
 		response = tcp_socket.recv(MAX_SIZE)
-		message_type = struct.unpack(">h", response)
+		message_type = struct.unpack(">h", response)[0]
+		print(message_type)
 		# Como enviamos um INFO_FILE esperamos receber um OK
 		if (message_type == OK):
 			# Precisamos agora enviar um FIM para o cliente
@@ -123,24 +101,27 @@ def main(argv):
 			tcp_socket.send(message_type_bytes)
 			# Agora começaremos a transmitir o arquivo
 			# Cria o socket udp
-			# udp_socket = socket.socket(address_family, socket.SOCK_DGRAM)
+			udp_socket = socket.socket(address_family, socket.SOCK_DGRAM)
 			# udp_socket.sendto(file_name, (host, udp_port))
-			# print ("Enviando %s ..." % file_name)
-			# # Abre o arquivo e le os 1000 primeiros bytes
-			# file = open(file_name, "r")
-			# data = file.read(1000)
-			# sequence_number = 0
-			# while(data):
-    		# 	# Monta a mensagem FILE para enviar
-			# 	message_type_bytes = struct.pack(">h", FILE)
-			# 	message_type_bytes = struct.pack(">", FILE)
-    		# 	if udp_socket.sendto(data, (host, udp_port)):
-			# 		data = file.read(1000)
-			# 		time.sleep(0.02)
-			# udp_socket.close()
-			# file.close()
+			print ("Enviando %s ..." % file_name)
+			# Abre o arquivo e le os 1000 primeiros bytes
+			file = open(file_name, "r")
+			data = file.read(1000)
+			sequence_number = 0
+			while(data):
+				# Monta a mensagem FILE para enviar
+				message_type_bytes = struct.pack(">h", FILE)
+				sequence_number_bytes = struct.pack(">i", sequence_number)
+				payload_size_bytes = struct.pack(">h", len(data))
+				message_file = message_type_bytes + sequence_number_bytes + payload_size_bytes + data.encode(ENCODING)
+				# Tenta enviar e continua a leitura
+				if udp_socket.sendto(message_file, (host, udp_port)):
+					data = file.read(1000)
+					time.sleep(0.02)
+			udp_socket.close()
+			file.close()
 		else:
-    		print("Ocorreu um erro no envio do INFO FILE")
+			print("Ocorreu um erro no envio do INFO FILE")
 	else:
 		print("Ocorreu um erro no no envio do HELLO")
 	# Fecha a conexao
