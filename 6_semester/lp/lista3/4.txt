@@ -1,3 +1,8 @@
 Mark and sweep, copying collector e reference counting.
 
-Exemplo: 
+Exemplo: Um exemplo seria uma aplicação complexa, que carrega
+muitos na dados na memória e blocos de memória são referenciados
+muitas vezes. Nesse cenário, o Reference Counting, se bem implementado,
+pode ser vantajoso em relação aos demais por evitar análise
+da memória em busca de blocos relevantes e assim ter um
+desempenho melhor.
