@@ -1,0 +1,8 @@
+(a) Verdadeiro
+(b) Falso, a pilha tem gerenciamente automático.
+(c) Falso, o heap tem gerenciamento manual.
+(d) Falso, uma das vantagens que o heap oferece é justamente a flexibidade 
+(e) Verdadeiro
+(f) Verdadeiro
+(g) Verdadeiro
+(h) Verdadeiro

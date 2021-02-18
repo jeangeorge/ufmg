@@ -1,0 +1,2 @@
+Resposta:
+(b) O programa em si e os estados que ele mantém

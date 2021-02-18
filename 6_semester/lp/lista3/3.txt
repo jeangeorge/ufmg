@@ -1,0 +1,8 @@
+(a)
+int valor_inicial = 10; -> Memória estática, por se tratar de uma variável global.
+int valor_intermediario = 5; -> Memória estática, por se tratar de uma variável global.
+int taxa = 3; -> Memória dinâmica, utizando a stack.
+int* valores -> Memória dinâmica, utilizando o heap
+
+
+(b) [25, 75, 15] 
