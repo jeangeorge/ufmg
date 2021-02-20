@@ -4,6 +4,8 @@ import socket
 import struct
 import time
 
+from file_packet import FilePacket
+
 from constants import *
 
 def usage(argv):
@@ -29,6 +31,19 @@ def is_valid_file_name(file_name):
 		return False
 	return True
 
+# Recebe o arquivo em bytes e retorna um array no formato FILE
+def create_file_packets(file):
+	packets = []
+	message_type = struct.pack(">h", FILE)
+	sequence_number = 0
+	data = file.read(1000)
+	packets.append(FilePacket(message_type, struct.pack(">i", sequence_number), struct.pack(">h", len(data)), data.encode(ENCODING)))
+	while data:
+		sequence_number += 1
+		data = file.read(1000)
+		if data:
+			packets.append(FilePacket(message_type, struct.pack(">i", sequence_number), struct.pack(">h", len(data)), data.encode(ENCODING)))
+	return packets
 
 # Funcao inicial do cliente
 def main(argv):
@@ -93,7 +108,6 @@ def main(argv):
 		# Obtemos a resposta
 		response = tcp_socket.recv(MAX_SIZE)
 		message_type = struct.unpack(">h", response)[0]
-		print(message_type)
 		# Como enviamos um INFO_FILE esperamos receber um OK
 		if (message_type == OK):
 			# Precisamos agora enviar um FIM para o cliente
@@ -103,21 +117,24 @@ def main(argv):
 			# Cria o socket udp
 			udp_socket = socket.socket(address_family, socket.SOCK_DGRAM)
 			# udp_socket.sendto(file_name, (host, udp_port))
-			print ("Enviando %s ..." % file_name)
-			# Abre o arquivo e le os 1000 primeiros bytes
+			# print ("Enviando %s ..." % file_name)
+			# # Abre o arquivo e le os 1000 primeiros bytes
 			file = open(file_name, "r")
-			data = file.read(1000)
-			sequence_number = 0
-			while(data):
-				# Monta a mensagem FILE para enviar
-				message_type_bytes = struct.pack(">h", FILE)
-				sequence_number_bytes = struct.pack(">i", sequence_number)
-				payload_size_bytes = struct.pack(">h", len(data))
-				message_file = message_type_bytes + sequence_number_bytes + payload_size_bytes + data.encode(ENCODING)
-				# Tenta enviar e continua a leitura
-				if udp_socket.sendto(message_file, (host, udp_port)):
-					data = file.read(1000)
-					time.sleep(0.02)
+			# data = file.read()
+			# sequence_number = 0
+			# teste
+			packets = create_file_packets(file)
+			# teste
+			# while(data):
+			# 	# Monta a mensagem FILE para enviar
+			# 	message_type_bytes = struct.pack(">h", FILE)
+			# 	sequence_number_bytes = struct.pack(">i", sequence_number)
+			# 	payload_size_bytes = struct.pack(">h", len(data))
+			# 	message_file = message_type_bytes + sequence_number_bytes + payload_size_bytes + data.encode(ENCODING)
+			# 	# Tenta enviar e continua a leitura
+			# 	if udp_socket.sendto(message_file, (host, udp_port)):
+			# 		data = file.read(1000)
+			# 		time.sleep(0.02)
 			udp_socket.close()
 			file.close()
 		else:

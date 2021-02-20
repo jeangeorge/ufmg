@@ -1,3 +1,7 @@
-(a) Polimorfismo paramétrico: por conta da utilização de 
+(a) Polimorfismo paramétrico: por conta da utilização de
 templates para executar o mesmo código para tipos diferentes;
-?
+Overloading: O mesmo método operator() possui duas definições diferentes.
+(b) Não, a memória é gerenciada automaticamente pelo auto_tr.
+(c) Não, idem letra (b).
+(d) Sim, o throw lança a exceção e faz com que o trecho que desaloca a memória não seja executado,
+levando assim a um vazamento de memória.
