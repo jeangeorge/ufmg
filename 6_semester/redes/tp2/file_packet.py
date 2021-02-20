@@ -4,3 +4,6 @@ class FilePacket:
         self.sequence_number = sequence_number
         self.payload_size = payload_size
         self.payload_file = payload_file
+
+    def to_bytes(self):
+        return self.message_type + self.sequence_number + self.payload_size +  self.payload_file

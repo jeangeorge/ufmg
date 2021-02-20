@@ -4,6 +4,7 @@ INFO_FILE = 3
 OK = 4
 FIM = 5
 FILE = 6
+ACK = 7
 MAX_SIZE = 1024
 # MAX_SIZE = 1024 * 1000 * 1000 * 500  # 500 MB
 ENCODING = "ascii"

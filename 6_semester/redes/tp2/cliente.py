@@ -76,7 +76,7 @@ def main(argv):
 	# Tenta fazer a conexao
 	try:
 		tcp_socket.connect((host, port))
-		print("Conexão via TCP realizada com sucesso com o servidor", host)
+		print("Conexão realizada com sucesso com o servidor", host)
 	except socket.error as e:
 		print("Erro ao realizar a conexão TCP com o servidor")
 		print(str(e))
@@ -116,25 +116,27 @@ def main(argv):
 			# Agora começaremos a transmitir o arquivo
 			# Cria o socket udp
 			udp_socket = socket.socket(address_family, socket.SOCK_DGRAM)
-			# udp_socket.sendto(file_name, (host, udp_port))
-			# print ("Enviando %s ..." % file_name)
-			# # Abre o arquivo e le os 1000 primeiros bytes
-			file = open(file_name, "r")
-			# data = file.read()
-			# sequence_number = 0
-			# teste
-			packets = create_file_packets(file)
-			# teste
-			# while(data):
-			# 	# Monta a mensagem FILE para enviar
-			# 	message_type_bytes = struct.pack(">h", FILE)
-			# 	sequence_number_bytes = struct.pack(">i", sequence_number)
-			# 	payload_size_bytes = struct.pack(">h", len(data))
-			# 	message_file = message_type_bytes + sequence_number_bytes + payload_size_bytes + data.encode(ENCODING)
-			# 	# Tenta enviar e continua a leitura
-			# 	if udp_socket.sendto(message_file, (host, udp_port)):
-			# 		data = file.read(1000)
-			# 		time.sleep(0.02)
+			# Abre o arquivo e le os 1000 primeiros bytes
+			file = open(file_name, "rb")
+			data = file.read(1000)
+			sequence_number = 0
+			print ("Enviando %s ..." % file_name)
+			while(data):
+				# Monta a mensagem FILE para enviar
+				message_type_bytes = struct.pack(">h", FILE)
+				sequence_number_bytes = struct.pack(">i", sequence_number)
+				payload_size_bytes = struct.pack(">h", len(data))
+				message_file = message_type_bytes + sequence_number_bytes + payload_size_bytes + data
+				# Tenta enviar e continua a leitura
+				if udp_socket.sendto(message_file, (host, udp_port)):
+					response = udp_socket.recv(MAX_SIZE)
+					message_type_received = struct.unpack(">h", response[:2])[0]
+					sequence_number_received = struct.unpack(">i", response[2:])[0]
+					if message_type_received == ACK and sequence_number_received == sequence_number:
+						sequence_number += 1
+						data = file.read(1000)
+					time.sleep(0.001)
+			print("Arquivo enviado!")
 			udp_socket.close()
 			file.close()
 		else:
