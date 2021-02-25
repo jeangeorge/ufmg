@@ -4,8 +4,6 @@ import socket
 import struct
 import time
 
-from file_packet import FilePacket
-
 from constants import *
 
 def usage(argv):
@@ -20,7 +18,7 @@ def is_valid_file_name(file_name):
 	if not file_name:
 		return False
 	# Validando se o a string tem menos de 15 bytes
-	if len(file_name.encode("ascii")) > 15:
+	if len(file_name.encode(ENCODING)) > 15:
 		return False
 	if is_ascii(file_name) == False:
 		return False
@@ -30,20 +28,6 @@ def is_valid_file_name(file_name):
 	if not (len(file_name.split(".")[1]) == 3):
 		return False
 	return True
-
-# Recebe o arquivo em bytes e retorna um array no formato FILE
-def create_file_packets(file):
-	packets = []
-	message_type = struct.pack(">h", FILE)
-	sequence_number = 0
-	data = file.read(1000)
-	packets.append(FilePacket(message_type, struct.pack(">i", sequence_number), struct.pack(">h", len(data)), data.encode(ENCODING)))
-	while data:
-		sequence_number += 1
-		data = file.read(1000)
-		if data:
-			packets.append(FilePacket(message_type, struct.pack(">i", sequence_number), struct.pack(">h", len(data)), data.encode(ENCODING)))
-	return packets
 
 # Funcao inicial do cliente
 def main(argv):

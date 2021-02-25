@@ -95,10 +95,18 @@ def main(argv):
 	# Cria um socket TCP e define que o endereço pode ser reutilizado
 	tcp_socket = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
 	tcp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+	try:
+		tcp_socket.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 0)
+	except (AttributeError, socket.error):
+		pass
 
 	# Cria um socket UDP
 	udp_socket = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
 	udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+	try:
+		udp_socket.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 0)
+	except (AttributeError, socket.error):
+		pass
 
 	# Tenta dar o bind em todos os endereços
 	try:
