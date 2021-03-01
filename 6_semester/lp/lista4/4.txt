@@ -1,0 +1,9 @@
+(a) Os objetos devem implementar os métodos isNotEmpty() e remove(), que não recebem nada como parâmetro.
+O método isNotEmpty() deve retornar um valor booleano enquanto o método remove() deve retornar algo printável, provavelmente o elemento que estamos removendo da estrutura em questão.
+
+(b) Duck typing é um estilo de programação implementado em linguagens dinamicamente tipadas (como Python).
+Nele o tipo de um atributo, variável ou parâmetro não importa, desde que o que estamos trabalhando contenha os atributos e métodos necessários e esperados.
+Vem da expressão "se anda como um pato, nada como um pato e faz quack como um pato, então provavelmenté um pato".
+A relação com o método removeAll() está justamente no fato do método não fazer distinção nem tratamento do tipo da variável (s) recebida. 
+Assim sendo, o método funcionaria para instâncias de Stack, Queue ou qualquer outra que contenha os métodos isNotEmpty() e remove().
+Caso o objeto s recebido não implemente os métodos o interpretador indicará um erro.

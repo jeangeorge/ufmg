@@ -1,0 +1,15 @@
+#1: Opção (i) - Pavao is an animal
+#2: Opção (i) - Tigre is a mammal
+#3: Opção (i) - Krypto is a dog
+#4: Opção (i) - Pavao, which is an animal, is eating.
+#5: Opção (i) - Tigre, which is a mammal, is sucking milk.
+#6: Opção (i) - Tigre, which is an animal, is eating.
+#7: Opção (i) - Krypto is barking rather loudly.
+#8: Opção (i) - Krypto, which is a mammal, is sucking milk.
+#9: Opção (i) -  
+        Krypto barks when it eats.
+        Krypto is barking rather loudly.
+#10: Opção (ii) - Aqui teremos um erro porque a classe Animal não implementa o método bark().
+#11: Opção (i) - Krypto is barking rather loudly. 
+        Obs: Acima teremos o resultado caso #11 seja executado. 
+        Da maneira como está implementado, caso #10 seja executado #11 nunca será executado porque #10 gera erro.

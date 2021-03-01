@@ -1,0 +1,19 @@
+No contexto de programação orientada a objetos, o "Problema do Diamante" acontece quando uma classe subclasse herda de duas ou mais classes que implementam um método com mesmo nome.
+
+Abaixo temos um exemplo:
+
+class Class1:
+    def my_method(self):
+        print("My method 1")
+
+class Class2:
+    def my_method(self):
+        print("My method 2")
+
+class Class3(A, B):
+    def call_method(self):
+        self.my_method()
+
+Vemos que Class3 em nenhum momento faz a sobreposição(override) do método my_method(). 
+Da maneira como está implementado, ao executar uma chamada de my_method() dentro de Class3 o interpretador verificará essa duplicidade e terá que escolher qual dos dois chamar.
+Esse problema é tratado de maneira diferente por diferentes linguagens. Em Python, por exemplo, o primeiro método será o escolhido. 
