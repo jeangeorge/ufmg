@@ -10,7 +10,7 @@ class Class2:
     def my_method(self):
         print("My method 2")
 
-class Class3(A, B):
+class Class3(CLass1, Class2):
     def call_method(self):
         self.my_method()
 
