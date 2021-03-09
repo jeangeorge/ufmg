@@ -1,0 +1,19 @@
+(a) 5, uma vez que ao chamar a função p estamos passando os valores 1 e 1 como parâmetro.
+Dentro da função p é utilizado o x definido no escopo global, teremos as operações
+x = x + 1 => x = 0 + 1 => x = 1
+y = y + 1 => y = 1 + 1 => y = 2
+z = z + 1 => z = 1 + 1 => z = 2.
+Teremos que x + y + z = 5.
+
+(b) 7, uma vez que y e z recebidos em p serão referências para a variável x declarada na função main.
+Isso significa que inicialmente y e z terão o mesmo valor que x possui no escopo da função main, mas ao alterar y teremos alteração em z (e vice versa).
+Teremos:
+
+// Aqui x será inicialmente 0, uma vez que nenhum x é declarado no escopo da função será utilizado o x do escopo global.
+x = x + 1 => x = 0 + 1 => x = 1
+
+// Abaixo teremos alteração em y e em z, por fazerem referência ao mesmo endereço de memoria.
+y = y + 1 => y = 1 + 1 => y = 2; z = 2;
+z = z + 1 => z = 2 + 1 => z = 3; y = 3;
+
+Teremos que x + y + z = 1 + 3 + 3 = 7.
