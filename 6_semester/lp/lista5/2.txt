@@ -4,6 +4,6 @@ int main(int argc, char** argv) {
 }
 
 (b) O erro chamado "captura de variáveis" ocorre quando tentamos substituir o nome de uma variável por outro já em uso. Isso causa um conflito no escopo.
-No caso dos macros isso pode acontecer quando ele é expandido textualmente, caso exista uma variaǘel de mesmo nome.
+No caso dos macros isso pode acontecer quando ele é expandido textualmente, caso exista uma variável de mesmo nome.
 
 (c)

@@ -1,0 +1,12 @@
+(a)
+k inicialmente vale 1. Toda vez que k é alterado, u passará a ser k ao quadrado. O loop é repetido 4 vezes e teremos:
+Loop 1, s = 0, k = 1, u = 1:
+    s = 0 + 1 => s = 1
+Loop 2, s = 1, k = 2, u = 4:
+    s = 1 + 4 => s = 5
+Loop 3, s = 5, k = 3, u = 9:
+    s = 5 + 9 => s = 14
+Loop 4, s = 14, k = 4, u = 16
+    s = 14 + 16 => s = 30
+
+No final da função o valor de s será 30, portanto Z = 30.
