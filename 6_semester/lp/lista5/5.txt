@@ -1,0 +1,5 @@
+(a) 4 e 4
+(b) 3 e 3
+(c) 4 e 4
+(d) Passagem por valor.
+(e) Passagem por referencia.

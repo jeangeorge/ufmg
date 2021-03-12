@@ -1,0 +1,4 @@
+(a) Podemos pensar num tipo abstrato de dados que seja complexo (uma classe com muitos atributos e métodos em C++ ou uma struct com muitos valores em C).
+Nesse caso, será sempre melhor optar pela passagem por referência, porque não há a necessidade de fazer uma cópia de um objeto complexo.
+
+(b) Na região de memória denominada "stack".
