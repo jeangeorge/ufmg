@@ -10,3 +10,8 @@ Loop 4, s = 14, k = 4, u = 16
     s = 14 + 16 => s = 30
 
 No final da função o valor de s será 30, portanto Z = 30.
+
+(b) O programa lê um valor inteiro do teclado e o utiliza no cálculo parâmetro u da função Sigma definida no enunciado.
+u será sempre (i+a)^(-2), isto é, o inverso de (i+a) ao quadrado.
+(i+a)^(-2) resultará ou em 1 ou numa fração. Portanto, teremos que a atribuição s = s + u nunca resultará num número inteiro e s será sempre o valor inicial (0).
+A única exceção a isso será quando o valor lido do teclado for 0: nesse caso teremos que u = 1 no primeiro loop e s = 1 no fim das iterações.
