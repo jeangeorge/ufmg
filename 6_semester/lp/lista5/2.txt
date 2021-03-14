@@ -7,3 +7,29 @@ int main(int argc, char** argv) {
 No caso dos macros isso pode acontecer quando ele é expandido textualmente, caso exista uma variável de mesmo nome.
 
 (c)
+#include <stdio.h>
+
+#define MIN(X, Y) (X) < (Y) ? (X) : (Y)
+
+int x = 5, y = 10;
+
+int incX() {
+    x++;
+    return x;
+}
+
+int incY() {
+    y++;
+    return y;
+}
+
+int main(int argc, char** argv) {
+    printf("min = %d \n", MIN(incX(), incY()));
+    printf("x = %d y = %d\n", x, y);
+    return 0;
+}
+
+Acima temos um programa que calcula o mínimo entre dois valores.
+Para MIN passamos por parâmetro dois métodos que incrementam em 1 os valores de x, y.
+É esperado que ao término da execução tenhamos x = 6 e y = 11, mas notamos que x = 7.
+Esse é um exemplo de avaliação dupla, uma vez que incX é chamado duas vezes em MIN.
