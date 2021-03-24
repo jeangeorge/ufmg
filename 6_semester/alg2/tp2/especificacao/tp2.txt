@@ -1,0 +1,93 @@
+UNIVERSIDADE FEDERAL DE MINAS GERAIS
+Instituto de Ciências Exatas
+Departamento de Ciência da Computação
+
+DCC207 -- Algoritmos 2
+Prof. Renato Vimieiro
+
+Trabalho Prático 2 -- Backtracking e branch-and-bound
+
+Objetivos
+---------
+
+Nesse trabalho serão abordados os aspectos práticos de algoritmos exatos para
+solucionar problemas np-difíceis. Especificamente, serão implementados duas
+versões do algoritmo para solucionar o problema da mochila, usando backtracking
+e branch-and-bound. Serão realizadas comparações desses algoritmos para avaliar
+o desempenho de cada versão com diferentes instâncias do problema. Dessa forma,
+objetiva-se que os alunos percebam as peculiaridades de cada abordagem, em particular
+as diferenças de desempenho.
+
+Além disso, objetiva-se que os alunos absorvam melhor e fixem as técnicas de
+backtracking e branch-and-bound; sobretudo os aspectos de implementação que não
+são abordados nas aulas teóricas.
+
+Tarefas
+-------
+
+Os alunos deverão implementar soluções para o problema da mochila baseadas em
+backtracking e branch-and-bound, conforme visto nas aulas. 
+
+As implementações deverão ser testadas com um conjunto de casos de teste que serão
+disponibilizados anexo a esse documento. Os testes deverão ser compilados em um
+arquivo csv, contendo o nome do caso de teste (arquivo), nome da(o) aluna(o), tempo de
+execução, e o valor calculado pelo algoritmo como solução para o problema. Os campos
+desse arquivo devem ser separados por ';' (ponto-e-vírgula). 
+
+Os casos de teste possuem o seguinte formato:
+
+Nome do arquivo: kp_n_wmax
+
+n: número total de itens a escolher
+
+wmax: capacidade da mochila
+
+Formato do arquivo:
+
+n wmax
+
+v1 w1
+v2 w2
+: :
+vi wi
+: :
+vn wn
+
+vi: valor do item i
+
+wi: peso do item i
+
+O que entregar?
+---------------
+
+Devem ser entregues todos os arquivos fonte usados na implementação. Deve ser
+entregue também o arquivo csv contendo os resultados dos testes. OS ARQUIVOS NAO DEVEM 
+SER COMPRIMIDOS EM HIPOTESE ALGUMA. Cada arquivo deve ser anexado individualmente.
+
+Política de Plágio
+------------------
+
+Os alunos podem, e devem, discutir soluções sempre que necessário. Dito isso,
+há uma diferença bem grande entre implementação de soluções similares e cópia
+integral de ideias. Trabalhos copiados na íntegra ou em partes de outros alunos
+e/ou da internet serão prontamente anulados. Caso hajam dois trabalhos copiados
+por alunos diferentes, ambos serão anulados.
+
+Datas
+-----
+
+Entrega Teams: 28/03/2021 às 23h59
+
+
+Política de atraso
+------------------
+
+Haverá tolerância de 30min na entrega dos trabalhos. Submissões feitas depois
+do intervalo de tolerância serão penalizados. 
+- Entregas até dia 29/03/21 às 13h: 20%
+- Não serão aceitos trabalhos entregues após esse horário.
+
+Referências
+------------------
+
+- Levitin Seção 12.2
