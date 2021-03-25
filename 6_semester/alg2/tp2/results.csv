@@ -1,1 +1,21 @@
-Aluno;Caso de Teste;Algoritmo;Tempo de Execução;Valor Calculado
+Aluno;Caso de Teste;Algoritmo;Valor Calculado;Tempo de Execução (em segundos)
+Jean George Alves Evangelista;f1_l-d_kp_10_269;Backtracking;295.0;0.0006117820739746094
+Jean George Alves Evangelista;f1_l-d_kp_10_269;Branch and Bound;280.0;0.00010848045349121094
+Jean George Alves Evangelista;f2_l-d_kp_20_878;Backtracking;1024.0;0.5078854560852051
+Jean George Alves Evangelista;f2_l-d_kp_20_878;Branch and Bound;972.0;0.0003428459167480469
+Jean George Alves Evangelista;f3_l-d_kp_4_20;Backtracking;35.0;9.5367431640625e-06
+Jean George Alves Evangelista;f3_l-d_kp_4_20;Branch and Bound;24.0;5.316734313964844e-05
+Jean George Alves Evangelista;f4_l-d_kp_4_11;Backtracking;23.0;8.58306884765625e-06
+Jean George Alves Evangelista;f4_l-d_kp_4_11;Branch and Bound;22.0;4.601478576660156e-05
+Jean George Alves Evangelista;f5_l-d_kp_15_375;Backtracking;481.069368;0.014945507049560547
+Jean George Alves Evangelista;f5_l-d_kp_15_375;Branch and Bound;469.161046;0.00020742416381835938
+Jean George Alves Evangelista;f6_l-d_kp_10_60;Backtracking;52.0;0.0004999637603759766
+Jean George Alves Evangelista;f6_l-d_kp_10_60;Branch and Bound;49.0;0.00014019012451171875
+Jean George Alves Evangelista;f7_l-d_kp_7_50;Backtracking;107.0;5.9604644775390625e-05
+Jean George Alves Evangelista;f7_l-d_kp_7_50;Branch and Bound;96.0;7.128715515136719e-05
+Jean George Alves Evangelista;f8_l-d_kp_23_10000;Backtracking;9767.0;3.9200594425201416
+Jean George Alves Evangelista;f8_l-d_kp_23_10000;Branch and Bound;9266.0;0.00018453598022460938
+Jean George Alves Evangelista;f9_l-d_kp_5_80;Backtracking;130.0;1.5974044799804688e-05
+Jean George Alves Evangelista;f9_l-d_kp_5_80;Branch and Bound;93.0;6.341934204101562e-05
+Jean George Alves Evangelista;f10_l-d_kp_20_879;Backtracking;1025.0;0.4565610885620117
+Jean George Alves Evangelista;f10_l-d_kp_20_879;Branch and Bound;973.0;0.00027251243591308594
