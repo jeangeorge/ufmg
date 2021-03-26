@@ -9,7 +9,7 @@ files = ["f1_l-d_kp_10_269", "f2_l-d_kp_20_878", "f3_l-d_kp_4_20", "f4_l-d_kp_4_
 def write_results(results):
     with open("results.csv", "w") as file:
         w = csv.writer(file, delimiter =';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        w.writerow(["Aluno", "Caso de Teste", "Algoritmo","Valor Calculado","Tempo de Execução (em segundos)"])
+        w.writerow(["Caso de Teste", "Aluno", "Tempo Backtracking", "Tempo Branch and Bound", "Valor Calculado"])
         for result in results:
             w.writerow(result)
 
@@ -32,12 +32,14 @@ def main():
             start = time.time()
             knapsack.solve_backtracking(0,0,0)
             end = time.time()
-            results.append(["Jean George Alves Evangelista", file_name, "Backtracking", knapsack.solution, end - start])
-            knapsack.solution = 0
+            backtracking_time = "{:.10f}".format(end - start)
             start = time.time()
             knapsack.solve_branch_and_bound()
             end = time.time()
-            results.append(["Jean George Alves Evangelista", file_name, "Branch and Bound", knapsack.solution, end - start])
+            branch_and_bound_time = "{:.10f}".format(end - start)
+            if knapsack.solution_backtracking != knapsack.solution_branch_and_bound:
+                print("deu ruim")
+            results.append([file_name, "Jean George Alves Evangelista", backtracking_time, branch_and_bound_time, knapsack.solution_backtracking])
     write_results(results)
     print("Execução finalizada!")
 
